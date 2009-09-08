@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE overlay SYSTEM "chrome://potofgold/locale/main.dtd">
+<?xul-overlay href="chrome://potofgold/content/main-tree-ope.xul"?>
+<?xul-overlay href="chrome://potofgold/content/search.xul"?>
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<vbox id="main-left">
+		<hbox id="search"/>
+		<hbox flex="1" >
+			<tree id="tree-ope"/>
+		</hbox>
+	</vbox>
+</overlay>
+

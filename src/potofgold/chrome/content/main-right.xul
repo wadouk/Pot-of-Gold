@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE overlay SYSTEM "chrome://potofgold/locale/main.dtd">
+<?xul-overlay href="chrome://potofgold/content/account-summarize.xul"?>
+<?xul-overlay href="chrome://potofgold/content/oper-edit.xul"?>
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">>
+	<vbox id="main-right">
+		<groupbox id="account-summarize"/>
+		<groupbox id="oper-edit"/>
+	</vbox>
+</overlay>
+

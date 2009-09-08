@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE window SYSTEM "chrome://potofgold/locale/main.dtd">
+<overlay>
+	<groupbox>
+		<caption label="&find.label;"/>
+
+		<grid>
+			<columns>
+				<column flex="2" align="center">
+					<label value="&oper_date.label;"/>
+					<hbox>
+						<label value="min"/>
+						<datepicker type="popup" firstdayofweek="1" />
+					</hbox>
+					<hbox>
+						<label value="max"/>
+						<datepicker type="popup" firstdayofweek="1" />
+					</hbox>
+				</column>
+				<column flex="10" align="center">
+					<label value="&others.label;"/>
+					<textbox/>
+				</column>
+				<column flex="2" align="center">
+					<label value="&categ.label;"/>
+					<menulist editable="false">
+						<menupopup>
+							<menuitem label="Alimentation"/>
+							<menuitem label="Loisir" />
+							<menuitem label="Paie" />
+						</menupopup>
+					</menulist>
+				</column>
+				<column flex="1" align="center">
+					<label value="&amount.label;"/>
+					<hbox>
+						<label value="min"/>
+						<textbox type="number" decimalplaces="2" min="-Infinity" hidespinbuttons="true"/>
+					</hbox>
+					<hbox>
+						<label value="max"/>
+						<textbox type="number" decimalplaces="2" min="-Infinity" hidespinbuttons="true"/>
+					</hbox>
+				</column>
+				<column flex="1" align="center">
+					<label value="&state.label;"/>
+					<menulist editable="false">
+						<menupopup>
+							<menuitem label="&new.label;Nouveau"/>
+							<menuitem label="&checked.label;" />
+							<menuitem label="&closed.label;" />
+						</menupopup>
+					</menulist>
+				</column>
+			</columns>
+		</grid>
+	</groupbox>
+</overlay>

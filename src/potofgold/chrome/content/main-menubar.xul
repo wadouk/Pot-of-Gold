@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE overlay SYSTEM "chrome://potofgold/locale/main.dtd">
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<commandset>
+		<command id="file:new" label="&new.label;"/>
+		<command id="file:open" label="&open.label;"/>
+		<command id="edit:prefs" label="&prefs.label;" oncommand="showPrefs()"/>
+		<command id="file:close" label="&close.label;" />
+		<command id="file:import" label="&import.label;" oncommand="import1()"/>
+		<command id="oper:save" label="&save.label;" oncommand="save()"/>
+		<command id="oper:cancel" label="&cancel.label;" oncommand="cancel()"/>
+		<command id="oper:create" label="&tocreate.label;" oncommand="create()" />
+		<command id="oper:del" label="&todel.label;" oncommand="removeOpe()"/>
+		<command id="opers:refresh" label="&refresh;"  oncommand="addDS()"/>
+		<command id="oper:find:show" label="&custo.label;" oncommand="findShow()"/>
+		<command id="oper:find:add" label="+" oncommand="findAdd()"/>
+		<command id="oper:find:del" label="-" oncommand="findDel()"/>
+		<command id="oper:find" label="&find.label;" oncommand="find()"/>
+		<command id="oper:find:custo:last_import" label="&find_last_import.label;" />
+		<command id="oper:find:custo:this_month" label="&find_this_month.label;" oncommand="findCusto(event)"/>
+		<command id="oper:renew" label="&new.label;" oncommand="renew();" />
+		<command id="oper:tocheck" label="&tocheck.label;" oncommand="check();" />
+		<command id="oper:toclose" label="&tocloser.label;" oncommand="close()"/>
+		<command id="oper:others" label="&other.label;" oncommand="showOthers()" />
+		<command id="oper:categs" label="&categ.label;" />
+		<command id="about:config" label="about:config" oncommand="showFullConfig()" />
+		<command id="jsconsole" label="jsconsole" oncommand="showJsConsole()" />
+		<command id="chart:evol_solde" label="&amount_change.label;" oncommand="showChartSoleEval()" />
+	</commandset>
+	<menubar id="main-menubar">
+		<menu label="&file.label;">
+			<menupopup>
+				<menuitem command="file:new"/>
+				<menuitem command="file:open"/>
+				<menuitem command="file:close"/>
+				<menuitem command="file:import" class="menuitem-iconic table_gear"/>
+			</menupopup>
+		</menu>
+		<menu label="&edit.label;">
+			<menupopup>
+				<menuitem command="edit:prefs"/>
+			</menupopup>
+		</menu>
+		<menu label="&oper.label;">
+			<menupopup>
+				<menuitem command="opers:refresh" class="menuitem-iconic icon-refresh"/>
+				<menuseparator/>
+				<menuitem command="oper:save" class="menuitem-iconic icon-opsave"/>
+				<menuitem command="oper:cancel" class="menuitem-iconic icon-opcancel"/>
+				<menuitem command="oper:create" class="menuitem-iconic icon-opnew"/>
+				<menuitem command="oper:del" class="menuitem-iconic icon-opdel"/>
+				<menuseparator/>
+				<menu label="&find.label;" id="menu_find">
+					<menupopup>
+						<menuitem name="custom_search" type="radio" command="oper:find:show"/>
+						<menuseparator/>
+					</menupopup>
+				</menu>
+				<!--<menuitem name="custom_search" type="radio" command="oper:find:custo:last_import" id ="menuitem_lastimport"/>
+				<menuitem name="custom_search" type="radio" command="oper:find:custo:this_month" id ="menuitem_thismonth"/>-->
+				<menuseparator/>
+				<menuitem command="oper:renew"/>
+				<menuitem command="oper:tocheck" class="menuitem-iconic tick"/>
+				<menuitem command="oper:toclose" class="menuitem-iconic icon_link"/>
+				<menuseparator/>
+				<menuitem command="oper:others" class="menuitem-iconic group" />
+				<menuitem command="oper:categs" class="menuitem-iconic folder" />
+			</menupopup>
+		</menu>
+		<menu label="&graph.label;">
+			<menupopup>
+				<menuitem label="&distrib_categs.label;" />
+				<menuitem command="chart:evol_solde"/>
+			</menupopup>
+		</menu>
+		<menu label="&tools.label;">
+			<menupopup>
+				<menuitem command="about:config"/>
+				<menuitem command="jsconsole"/> 	
+			</menupopup>
+		</menu>
+	</menubar>
+
+</overlay>
+

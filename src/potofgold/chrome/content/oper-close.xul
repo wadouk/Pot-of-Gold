@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://potofgold/skin/main.css" type="text/css"?>
+<!DOCTYPE dialog SYSTEM "chrome://potofgold/locale/main.dtd">
+<dialog 
+	title="&oper_close.label;"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	id="oper-close"
+	ondialogaccept="closeThose();">
+	<script type="application/javascript" src="chrome://js/content/close.js"/>
+	<grid>
+		<rows>
+			<row>
+				<label value="&last_closed.label;:"/>
+				<label id="last_closed"/>
+				
+			</row>
+			<row>
+				<label value="&amount_closed.label;:"/>
+				<label class="amount" id="amount_closed"/>
+			</row>
+			<row>
+				<label value="&amount_closedorchecked.label;:"/>
+				<label class="amount" id="amount_closedorchecked"/>
+			</row>
+			<row>
+				<label value="&bank_amount.label;:"/>
+				<textbox type="number" id="bank_amount" decimalplaces="2" min="-Infinity" hidespinbuttons="true" onkeypress="keypress();"/>
+			</row>
+			<row>
+				<label value="&diff.label;:"/>
+				<textbox disabled="true" id="diff" />
+			</row>
+			<row>
+				<label value="&closed_less.label;:"/>
+				<label class="amount" id="closed_less"/>
+			</row>
+			<row>
+				<label value="&closed_more.label;:"/>
+				<label class="amount" id="closed_more"/>
+			</row>
+		</rows>
+	</grid>	
+	<hbox> <spacer flex="1"/>
+
+		<button dlgtype="accept" label="&tocloser.label;" class="button-iconic icon_link"/>
+		<button dlgtype="cancel"/>
+    </hbox>
+
+</dialog>
+	

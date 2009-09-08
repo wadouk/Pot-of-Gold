@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE overlay SYSTEM "chrome://potofgold/locale/main.dtd">
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<hbox id="search" style="display:none;">
+		<grid flex="1" id="search_criteria" style="border: solid 1px black;">
+			<rows>
+				<row>
+					<menulist oncommand="findShowGoodSearchField(event)">
+						<menupopup>
+							<menuitem value="id" label="&id.label;"/>
+							<menuitem value="date" label="&date.label;"/>
+							<menuitem value="other" label="&other.label;"/>
+							<menuitem value="type" label="&type.label;"/>
+							<menuitem value="categ" label="&categ.label;"/>
+							<menuitem value="num" label="&num.label;" />
+							<menuitem value="state" label="&state.label;"/>
+							<menuitem value="created" label="&created.label;"/>
+							<menuitem value="updated" label="&updated.label;"/>
+							<menuitem value="checked" label="&checked.label;"/>
+							<menuitem value="closed" label="&closed.label;"/>
+							<menuitem value="batch_num" label="&batch_num.label;"/>
+							<menuitem value="amount_dbl" label="&amount.label;" />
+						</menupopup>
+					</menulist>
+					<menulist>
+						<menupopup>
+							<menuitem value="=" label="égal"/>
+							<menuitem value="like" label="contient"/>
+							<menuitem value="&gt;" label="plus grand que"/>
+							<menuitem value="&lt;" label="plus petit que"/>
+						</menupopup>
+					</menulist>
+					<textbox/>
+				</row>
+			</rows>
+		</grid>
+		<vbox>
+			<hbox>
+				<button command="oper:find:add"/>
+				<button command="oper:find:del"/>
+			</hbox>
+			<button command="oper:find"/>
+		</vbox>
+	</hbox>
+</overlay>

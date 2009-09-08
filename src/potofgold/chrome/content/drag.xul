@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE dialog SYSTEM "chrome://potofgold/locale/main.dtd">
+<?xml-stylesheet href="chrome://potofgold/skin/main.css" type="text/css"?>
+<window title="Widget Dragger"
+	id="test-window"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script src="chrome://global/content/nsDragAndDrop.js"/>
+	<script src="chrome://global/content/nsTransferable.js"/>
+	<script src="chrome://js/content/drag.js"/>
+	<!--<stack id="board"
+		 style="width:300px; height: 300px; max-width: 300px; max-height: 300px; border-color: #000000"
+		 ondragover="nsDragAndDrop.dragOver(event, boardObserver)"
+		 ondragdrop="nsDragAndDrop.drop(event, boardObserver)">
+</stack>
+-->
+	<hbox>
+      
+		<groupbox id="import_list_fields"
+			ondragover="nsDragAndDrop.dragOver(event, boardObserver2)"
+			ondragdrop="nsDragAndDrop.drop(event, boardObserver2)">
+			<caption label="Liste des champs"/>
+			<label value="id:"
+				ondraggesture="nsDragAndDrop.startDrag(event, listObserver)"/>
+			<label value="date:"
+				ondraggesture="nsDragAndDrop.startDrag(event, listObserver)"/>
+			<label value="others:"
+				ondraggesture="nsDragAndDrop.startDrag(event, listObserver)"/>
+			<label value="type:" ondraggesture="nsDragAndDrop.startDrag(event, listObserver)"
+				/>
+			<label value="num:" ondraggesture="nsDragAndDrop.startDrag(event, listObserver)"
+				/>
+			<label value="categ:" ondraggesture="nsDragAndDrop.startDrag(event, listObserver)"
+				/>
+			<label value="amount:" ondraggesture="nsDragAndDrop.startDrag(event, listObserver)"
+				/>
+			<label value="state:" ondraggesture="nsDragAndDrop.startDrag(event, listObserver)"
+				/>
+			<label value="batch_num:" ondraggesture="nsDragAndDrop.startDrag(event, listObserver)"
+				/>
+		</groupbox>
+		<groupbox flex="1">
+			<caption label="Exemple d'opération lu"/>
+			<grid flex="1" id="import_map">
+				<rows>
+					<row>
+						<label value="#1" class="field"
+							ondragover="nsDragAndDrop.dragOver(event, boardObserver)"
+							ondragdrop="nsDragAndDrop.drop(event, boardObserver)"
+							ondraggesture="nsDragAndDrop.startDrag(event, listObserver2)"/>
+						<textbox value="val1" readonly="true"/>
+						<label value="#2" class="field"
+							ondragover="nsDragAndDrop.dragOver(event, boardObserver)"
+							ondragdrop="nsDragAndDrop.drop(event, boardObserver)"
+							ondraggesture="nsDragAndDrop.startDrag(event, listObserver2)"
+							/>
+						<textbox value="val2" readonly="true"/>
+					</row>
+					<row>
+						<label value="#3" ondragover="nsDragAndDrop.dragOver(event, boardObserver)"
+							ondragdrop="nsDragAndDrop.drop(event, boardObserver)" class="field"
+							ondraggesture="nsDragAndDrop.startDrag(event, listObserver2)"/>
+						<textbox value="val3" readonly="true"/>
+						<label value="#4" ondragover="nsDragAndDrop.dragOver(event, boardObserver)"
+							ondragdrop="nsDragAndDrop.drop(event, boardObserver)" class="field"
+							ondraggesture="nsDragAndDrop.startDrag(event, listObserver2)"/>
+						<textbox value="val4" readonly="true"/>
+					</row>
+					<row>
+						<label value="#5" ondragover="nsDragAndDrop.dragOver(event, boardObserver)"
+							ondragdrop="nsDragAndDrop.drop(event, boardObserver)" class="field"
+							ondraggesture="nsDragAndDrop.startDrag(event, listObserver2)"/>
+						<textbox value="val5" readonly="true"/>
+						<label value="#6" ondragover="nsDragAndDrop.dragOver(event, boardObserver)"
+							ondragdrop="nsDragAndDrop.drop(event, boardObserver)" class="field"
+							ondraggesture="nsDragAndDrop.startDrag(event, listObserver2)"/>
+						<textbox value="val6" readonly="true"/>
+					</row>
+					<row>
+						<label value="#7" ondragover="nsDragAndDrop.dragOver(event, boardObserver)"
+							ondragdrop="nsDragAndDrop.drop(event, boardObserver)" class="field"
+							ondraggesture="nsDragAndDrop.startDrag(event, listObserver2)"/>
+						<textbox value="val7" readonly="true"/>
+						<label value="#8" ondragover="nsDragAndDrop.dragOver(event, boardObserver)"
+							ondragdrop="nsDragAndDrop.drop(event, boardObserver)" class="field"
+							ondraggesture="nsDragAndDrop.startDrag(event, listObserver2)"/>
+						<textbox value="val8" readonly="true"/>
+					</row>
+					<row>
+						<label value="#9" ondragover="nsDragAndDrop.dragOver(event, boardObserver)"
+							ondragdrop="nsDragAndDrop.drop(event, boardObserver)" class="field"
+							ondraggesture="nsDragAndDrop.startDrag(event, listObserver2)"/>
+						<textbox value="val9" readonly="true"/>
+						<label value="#10"
+							ondragover="nsDragAndDrop.dragOver(event, boardObserver)"
+							ondragdrop="nsDragAndDrop.drop(event, boardObserver)" class="field"
+							ondraggesture="nsDragAndDrop.startDrag(event, listObserver2)"/>
+						<textbox value="val10" readonly="true"/>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+	</hbox>
+	<textbox id="debug" multiline="true" rows="10" style="height: 100px"/>
+</window>
+ 

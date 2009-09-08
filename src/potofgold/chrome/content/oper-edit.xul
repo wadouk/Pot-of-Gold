@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE overlay SYSTEM "chrome://potofgold/locale/main.dtd">
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<groupbox minwidth="100" id="oper-edit">
+		<caption label="&oper_edit.label;"/>
+		<!--ref="*" datasources="rdf:null" querytype="storage" uri="?"-->
+		<grid id="oper-edit-grid" >
+			<rows id="oper-edit-rows" >
+				<row>
+					<label value="&id.label;"/>
+					<textbox id="oper-edit-id" readonly="true" onchange="shouldHaveChanged(event);"/>
+				</row>
+				<row>
+					<label value="&date.label;"/>
+					<datepicker id="oper-edit-date" type="popup" firstdayofweek="1" onblur="shouldHaveChanged(event);"/>
+				</row>
+				<row>
+					<label value="&other.label;"/>
+					<textbox id="oper-edit-other" onblur="shouldHaveChanged(event);">
+					</textbox>
+				</row>
+				<row>
+					<label value="&type.label;"/>
+					<menulist id="oper-edit-type" editable="true" ref="*" datasources="rdf:null" querytype="storage" onblur="shouldHaveChanged(event);" >
+						<template>
+							<query>select distinct type from vw_oper </query>
+							<action>
+								<menupopup>
+									<menuitem uri="?" label="?type"/>
+								</menupopup>
+							</action>
+						</template>
+					</menulist>
+				</row>
+				<row>
+					<label value="&num.label;"/>
+					<textbox id="oper-edit-num" onchange="shouldHaveChanged(event);">
+					</textbox>
+				</row>
+				<row>
+					<label value="&categ.label;"/>
+					<menulist id="oper-edit-categ" editable="true" onblur="shouldHaveChanged(event);" ref="*" datasources="rdf:null" querytype="storage" >
+						<template>
+							<query>select distinct categ from vw_oper where categ is not null and categ &lt;&gt; ''</query>
+							<action>
+								<menupopup>
+									<menuitem uri="?" label="?categ"/>
+								</menupopup>
+							</action>
+						</template>
+					</menulist>
+				</row>
+				<row>
+					<label value="&amount.label;"/>
+					<textbox id="oper-edit-amount" type="number" decimalplaces="2" min="-Infinity" hidespinbuttons="true" onchange="shouldHaveChanged(event);"/>
+				</row>
+				<row>
+					<label value="&state.label;" />
+					<menulist id="oper-edit-state" disabled="true">
+						<menupopup class="oper">
+							<menuitem value="2" label="&state.new.label;" />
+							<menuitem value="3" label="&state.checked.label;" />
+							<menuitem value="4" label="&state.closed.label;"/>
+						</menupopup>
+					</menulist>
+				</row>
+				<row>
+					<label value="&created.label;"/>
+					<label id="oper-edit-created"/>
+				</row>
+				<row>
+					<label value="&updated.label;"/>
+					<label id="oper-edit-updated"/>
+				</row>
+				<row>
+					<label value="&checked.label;"/>
+					<label id="oper-edit-checked"/>
+				</row>
+				<row>
+					<label value="&closed.label;"/>
+					<label id="oper-edit-closed"/>
+				</row>
+				<row>
+					<label value="&batch_num.label;"/>
+					<label id="oper-edit-batch_num"/>
+				</row>
+				<!--
+							<row>
+						<label value="&batch_date.label;"/>
+						<textbox readonly="true"/>
+					  </row>
+-->
+    
+			</rows>
+		</grid>
+</groupbox>
+</overlay>
+

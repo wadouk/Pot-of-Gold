@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE wizard SYSTEM "chrome://potofgold/locale/main.dtd">
+<?xml-stylesheet href="chrome://potofgold/skin/main.css" type="text/css"?>
+<wizard id="import" title="&import.title;" onload="import_load();" persist="screenX screenY"  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script src="chrome://global/content/nsDragAndDrop.js"/>
+	<script src="chrome://global/content/nsTransferable.js"/>
+	<script src="chrome://js/content/drag.js"/>
+	<script src="chrome://js/content/import.js"/>
+	<!--
+		  <script type="application/x-javascript" src="chrome://jslib/content/jslib.js" />
+-->
+	<!--
+		  <stringbundle id="main-stringbundle" src="chrome://potofgold/locale/main.properties"/>-->
+	<wizardpage id="import_file_format" onpageadvanced="map_fields();" label="&import_file_format.label;" description="&import_file_format.description;">
+		<hbox>
+			<label value="&selected_file_is;"/>
+			<label id="select_file" value=""/>
+		</hbox>
+		<grid>
+			<rows>
+				<row>
+					<label value="&line_sep;"/>
+					<menulist id="import_linesep" oncommand="reparse_import();" persist="value">
+						<menupopup>
+							<menuitem value="r" label="Mac classic (\r)"/>
+							<menuitem value="n" label="UNIX,MacOS X (\n)"/>
+							<menuitem value="rn" label="DOS/Windows (\r\n)"/>
+						</menupopup>
+					</menulist>
+					<label value="&field_sep;"/>
+					<menulist id="import_fieldsep" oncommand="reparse_import();" editable="true" persist="value">
+						<menupopup>
+							<menuitem value="," label="Virgule"/>
+							<menuitem value=";" label="Point virgule"/>
+						</menupopup>
+					</menulist>
+				</row>
+				<row>
+					<label value="&file_encoding;"/>
+					<menulist id="import_charset" oncommand="reparse_import();" editable="false" persist="value">
+						<menupopup maxheight="100"><!--
+								  <menuitem label="ISO-8859-1"/>
+								  <menuitem label="UTF-8"/>
+								  <menuitem label="CP1252"/>
+								  <menuitem label="MacRoman"/>-->
+						</menupopup>
+					</menulist>
+					<button label="Recharger le fichier" oncommand="reparse_import();" id="reparse_import"/>
+				</row>
+				<row>
+					<label value="Format de date"/>
+					<menulist id="import_dateformat" disabled="true" persist="selectItem value">
+						<menupopup >
+							<menuitem label="aaaa-MM-jj" selected="true"/>
+						</menupopup>
+					</menulist>
+					<label value="Format de nombre"/>
+					<menulist id="import_numberformat"  disabled="true" persist="selectItem value">
+						<menupopup >
+							<menuitem label="###0,00" selected="true"/>
+						</menupopup>
+					</menulist>
+				</row>
+			</rows>
+		</grid>
+		<hbox>
+			<label value="&nb_lines;"/>
+			<label id="nb_line" value="?"/>
+			<label value="Nombre de champs"/>
+			<label id="nb_field" value="?"/>
+		</hbox>
+		<hbox>
+			<label value="&first_line_like;"/>
+			<checkbox label="&ignore_1st_line;" oncommand="reparse_import();" id="import_ignore1stline" persist="checked"/>
+		</hbox>
+		<label id="first_line" value="?"/>
+	</wizardpage>
+	<wizardpage id="import_format_page" onpageadvanced="build_check();" label="&match_fields;" description="&match_fields.desc;">
+		<box id="import-map-fields"/>
+	</wizardpage>
+	<wizardpage id="import_check" label="&import_check.label;" description="&import_check.desc;" onpageadvanced="put_in_db();">
+		<textbox id="import_warn" readonly="true" multiline="true" style="height: 50px; display: none"/>
+		<tree flex="1" minwidth="500" id="import-check-tree" hidecolumnpicker="true">
+			<treecols id="import-check-cols" >
+				<treecol id="import-check-col-rowNum" label="&num_line;"/>
+				<treecol id="import-check-col-date" label="&date.label;" flex="2"/>
+				<treecol id="import-check-col-other" label="&others.label;" flex="5"/>
+				<treecol id="import-check-col-type" label="&type.label;" flex="1"/>
+				<treecol id="import-check-col-categ" label="&categs.label;"  flex="2"/>
+				<treecol id="import-check-col-amount" class="amount" label="&amount.label;" flex="1"/>
+				<treecol id="import-check-col-num" label="&num.label;" flex="1"/>
+			</treecols>
+			<treechildren id="import-check-child"/>
+		</tree>
+	</wizardpage>
+</wizard>
+

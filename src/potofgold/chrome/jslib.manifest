@@ -1,0 +1,3 @@
+content 	jslib 			jar:jsliblive/jslib.jar!/
+skin 		jslib 			jar:jsliblive/jslib.jar!/
+locale 		jslib	en-US	jar:jsliblive/jslib.jar!/ 

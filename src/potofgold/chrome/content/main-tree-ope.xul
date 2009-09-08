@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE overlay SYSTEM "chrome://potofgold/locale/main.dtd">
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<tree flex="1" minwidth="500" id="tree-ope" datasources="rdf:null" ref="*" querytype="storage" onselect="treeOpeSelect();" enableColumnDrag="true">
+		<treecols>
+			<treecol id="tree-ope-col-id" label="&id.label;" flex="2" hidden="true" persist="width ordinal hidden"/>
+			<splitter  class="tree-splitter"/>
+			<treecol id="tree-ope-col-date" label="&date.label;" flex="2" persist="width ordinal hidden"/>
+			<splitter class="tree-splitter"/>
+			<treecol id="tree-ope-col-other" label="&other.label;" flex="5" persist="width ordinal hidden"/>
+			<splitter class="tree-splitter"/>
+			<treecol id="tree-ope-col-type" label="&type.label;" flex="1" persist="width ordinal hidden"/>
+			<splitter class="tree-splitter"/>
+			<treecol id="tree-ope-col-categ" label="&categ.label;"  flex="2" persist="width ordinal hidden"/>
+			<splitter class="tree-splitter"/>
+			<treecol id="tree-ope-col-amount_dbl" class="amount" label="&amount.label;" flex="1" persist="width ordinal hidden"/>
+			<splitter class="tree-splitter"/>
+			<treecol id="tree-ope-col-num" label="&num.label;" flex="1" hidden="false" persist="width ordinal hidden"/>
+			<splitter class="tree-splitter"/>
+			<treecol id="tree-ope-col-state" label="&state.label;"  flex="1" persist="width ordinal hidden"/>
+			<splitter class="tree-splitter"/>
+			<treecol id="tree-ope-col-created" label="&created.label;"  flex="1" hidden="true" persist="width ordinal hidden"/>
+			<splitter class="tree-splitter"/>
+			<treecol id="tree-ope-col-updated" label="&updated.label;"  flex="1" hidden="true" persist="width ordinal hidden"/>
+			<splitter class="tree-splitter"/>
+			<treecol id="tree-ope-col-checked" label="&checked.label;"  flex="1" hidden="true" persist="width ordinal hidden"/>
+			<splitter class="tree-splitter"/>
+			<treecol id="tree-ope-col-closed" label="&closed.label;" flex="1" hidden="true" persist="width ordinal hidden"/>
+			<splitter class="tree-splitter"/>
+			<treecol id="tree-ope-col-batch_num" label="&batch_num.label;" flex="1" hidden="true" persist="width ordinal hidden"/>
+			<treecol id="tree-ope-col-amount" hidden="true" label="&amount.label;" ignoreincolumnpicker="true"/>
+		</treecols>
+		<template>
+			<query>select * from vw_oper</query>
+			
+			<action>
+				<treechildren id="treeChildOpe">
+					<treeitem uri="?">
+						<treerow>
+							<treecell label="?id"/>
+							<treecell label="?date"/>
+							<treecell label="?other"/>
+							<treecell label="?type"/>
+							<treecell label="?categ"/>
+							<treecell class="amount" label="?amount_dbl"/>
+							<treecell label="?num"/>
+							<treecell class="state" label="?state"/>
+							<treecell label="?created"/>
+							<treecell label="?updated"/>
+							<treecell label="?checked"/>
+							<treecell label="?closed"/>
+							<treecell label="?batch_num"/>
+							<treecell label="?amount_dbl"/>
+						</treerow>
+					</treeitem>
+				</treechildren>
+			</action>
+		</template>
+	</tree>
+</overlay>
+

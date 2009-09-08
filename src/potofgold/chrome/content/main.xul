@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://potofgold/skin/main.css" type="text/css"?>
+<?xul-overlay href="chrome://potofgold/content/main-menubar.xul"?>
+<?xul-overlay href="chrome://potofgold/content/main-left.xul"?>
+<?xul-overlay href="chrome://potofgold/content/main-right.xul"?>
+<!DOCTYPE window SYSTEM "chrome://potofgold/locale/main.dtd">
+<window id="main"
+	title="Pot of gold"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	persist="width height screenX screenY"
+	>
+	<script type="application/javascript" src="chrome://js/content/main.js"/>
+
+	<menubar id="main-menubar"/>
+	<hbox>
+		<vbox id="main-left" flex="1"/>
+		<vbox id="main-right"/>
+	</hbox>
+	<statusbar>
+		<statusbarpanel id="status-msgs" flex="1"/>
+		<statusbarpanel id="op-save" class="statusbarpanel-iconic icon-opsave" command="oper:save">
+		</statusbarpanel>
+		<statusbarpanel id="op-cancel" class="statusbarpanel-iconic icon-opcancel" command="oper:cancel">
+		</statusbarpanel>
+	</statusbar>
+</window>
+

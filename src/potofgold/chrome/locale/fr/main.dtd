@@ -1,0 +1,96 @@
+<!ENTITY tofind.label "Rechercher">
+<!ENTITY file.label "Fichier">
+<!ENTITY new.label "Nouveau">
+<!ENTITY tocreate.label "Créer">
+<!ENTITY last_closed.label "Dernière pointée">
+<!ENTITY others.label "Tiers">
+<!ENTITY categs.label "Catégories">
+<!ENTITY evol_solde.title "Evolution du solde">
+<!ENTITY custo.label "Personnalisée">
+<!ENTITY open.label "Ouvrir">
+<!ENTITY close.label "Fermer">
+<!ENTITY import.label "Importer">
+<!ENTITY todel.label "Suppimer">
+<!ENTITY tocheck.label "Pointer">
+<!ENTITY oper.label "Opérations">
+<!ENTITY tocloser.label "Rapprocher">
+<!ENTITY other.label "Tiers">
+<!ENTITY categ.label "Catégories">
+<!ENTITY type.label "Type">
+<!ENTITY save.label "Enregistrer">
+<!ENTITY cancel.label "Annuler">
+<!ENTITY etat3.label "Rapprochée">
+<!ENTITY etat2.label "Pointée">
+<!ENTITY etat4.label "Nouveau">
+<!ENTITY categ.label "Catégorie">
+<!ENTITY amount.label "Montant">
+<!ENTITY state.label "Etat">
+<!ENTITY id.label "Id">
+<!ENTITY find_last_import.label "Dernier import">
+<!ENTITY find_this_month.label "Ce mois">
+<!ENTITY num.label "Num">
+<!ENTITY graph.label "Graph">
+<!ENTITY created.label "Crée le">
+<!ENTITY updated.label "Modifié le">
+<!ENTITY checked.label "Pointé le">
+<!ENTITY closed.label "Rapproché le">
+<!ENTITY batch_num.label "Lot n°">
+<!ENTITY batch_date.label "Date du lot">
+<!ENTITY oper_date.label "Date">
+<!ENTITY account_summarize.label "Résumé du compte">
+<!ENTITY amount.label "Montant">
+<!ENTITY amount_total.label "Solde actuel">
+<!ENTITY lastweek.label "La semaine dernière">
+<!ENTITY yesterday.label "Hier">
+<!ENTITY edit.label "Edition">
+<!ENTITY prefs.label "Préférences">
+<!ENTITY state.new.label "Nouvelle">
+<!ENTITY state.checked.label "Pointée">
+<!ENTITY state.closed.label "Rapprochée">
+<!--<!ENTITY amount.label "Montant">
+<!ENTITY amount.label "Montant">-->
+<!ENTITY amount_closed.label "Solde rapproché">
+<!ENTITY oper_close.label "Rapprocher les opérations">
+<!ENTITY diff.label "Différence">
+
+<!ENTITY closed_less.label "Pointée au débit">
+<!ENTITY closed_more.label "Pointée au crédit">
+
+
+<!ENTITY amount_closedorchecked.label "Solde pointé ou rapproché">
+<!ENTITY bank_amount.label "Solde du relevé">
+
+<!ENTITY month_diff.label "Delta du mois">
+<!ENTITY last_batch.label "Dernier lot">
+<!ENTITY last_close.label "Dernier rapprochement">
+<!ENTITY oper_edit.label "Éditer l'opération">
+<!ENTITY import.title "Importer des opérations">
+<!ENTITY import.filetype.label "Type de fichier à importer">
+<!ENTITY import.filetype.description "Veuillez sélectionner dans la liste ci-dessous le format de fichier à importer">
+<!ENTITY import.filetype.csv "Texte délimité par des points virgule ou des virgules">
+<!ENTITY import.filetype.xml "Fichier Balisé (XML)">
+<!ENTITY import.filetype.ofx "Fichier OFX">
+<!ENTITY fields_list.label "Liste des champs">
+<!ENTITY sample_ope.label "Exemple d'opération lue">
+<!ENTITY select_file.label "Sélectionner un fichier">
+<!ENTITY distrib_categs.label "Répartition des catégories">
+<!ENTITY amount_change.label "Evolution du solde">
+<!ENTITY find.label "Recherche">
+<!ENTITY date.label "Date">
+<!ENTITY import_file_format.label "Format du fichier csv à importer">
+<!ENTITY import_file_format.description "Renseigner ici toutes les informations sur le format du fichier">
+<!ENTITY selected_file_is "Le fichier sélectionné est">
+<!ENTITY line_sep "Séparateur de ligne">
+<!ENTITY field_sep "Séparateur de champ">
+<!ENTITY file_encoding "Encodage du fichier">
+<!ENTITY nb_lines "Nombre de lignes">
+<!ENTITY first_line_like "La 1ère ligne ressemble à ça">
+<!ENTITY ignore_1st_line "Ignorer la première ligne">
+<!ENTITY match_fields "Correspondance des champs">
+<!ENTITY num_line "#Ligne">
+<!ENTITY tools.label "Outils">
+<!ENTITY refresh "Actualiser">
+
+<!ENTITY match_fields.desc "Faites correspondre les champs du fichier avec ceux de Pot Of Gold (par glisser-déposer)">
+<!ENTITY import_check.label "Vérification du résultat">
+<!ENTITY import_check.desc "Veuillez vérifier le résultat fourni ci dessous en détail, les données seront importées tel quelles">

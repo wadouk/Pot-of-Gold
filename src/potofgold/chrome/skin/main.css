@@ -1,0 +1,105 @@
+@import url(chrome://global/skin);
+
+.amount{
+	text-align: right;
+}
+
+svg {
+	background-color: white;
+}
+
+circle#date, circle#amount {
+	fill: red;
+	stroke: none;
+}
+text {
+	font-style : normal;
+	font-family: sans-serif;
+	font-size: 9pt;
+}
+#oSolde {
+	
+	stroke: green;
+	stroke-width:1;
+} 
+
+#avg {
+	fill: none;
+	stroke: black;
+	stroke-width:1;
+
+}
+/*
+textbox{
+	height: 22px;
+	
+}*/
+/*
+#menu_refresh {
+  list-style-image: url('imgs/skin/action_refresh.png');
+}*//*
+textbox {
+	          background-color: #FFFF00;
+		  text-align: right;		
+		  color:black;
+		  border-color:black;
+		  border-width:1px;
+		  font-weight:bold; 
+		  font-style:normal;
+		  font-family:Courier New; 					    		    		    		    
+		}*/
+#bank_amount, #diff, #last_closed {
+	text-align: right;
+	width: 50px;
+} 		
+#search {
+	max-height: 80px;
+}
+#search_criteria {
+	overflow-y: auto;
+}
+.modifiedField{
+	font-style:italic;
+}
+.table_gear{
+	list-style-image:url("chrome://imgs/skin/table_gear.png");
+}
+
+
+.icon_link{
+	list-style-image:url("chrome://imgs/skin/icon_link.png");
+}
+.tick{
+	list-style-image:url("chrome://imgs/skin/tick.png");
+}
+.folder{
+	list-style-image:url("chrome://imgs/skin/folder.png");
+}
+.group{
+	list-style-image:url("chrome://imgs/skin/group.png");
+}
+.icon-opsave{
+	list-style-image:url("chrome://imgs/skin/money.png");
+}
+.icon-opcancel{
+	list-style-image:url("chrome://imgs/skin/money_cancel.png");
+}
+.icon-refresh{
+	list-style-image:url("chrome://imgs/skin/action_refresh.png");
+}
+.icon-opnew{
+	list-style-image:url("chrome://imgs/skin/money_add.png");
+}
+#status-tran{
+	list-style-image:url("chrome://imgs/skin/database.png");
+}
+.icon-opdel{
+	list-style-image:url("chrome://imgs/skin/money_delete.png");
+}
+#import_warn{
+	color: rgb(255,0,0);
+}
+#import-map-fields{
+    -moz-binding: url('chrome://potofgold/content/import-map-fields.xbl#dragboard');
+}
+

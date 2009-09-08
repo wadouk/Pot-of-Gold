@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE prefwindow SYSTEM "chrome://potofgold/locale/main.dtd">
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>   
+<prefwindow id="prefs" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	
+	
+
+	<prefpane id="saveoptions" label="Préferences">
+		<preferences>
+			<preference id="pref-dbloc-type" name="extensions.potofgold.dbloc.type" type="int"/>
+			<preference id="pref-dbloc-path" name="extensions.potofgold.dbloc.path" type="string"/>
+			<preference id="pref-currencyUnit" name="extensions.potofgold.currencyUnit" type="int"/>
+		</preferences>
+		<grid>
+			<rows>
+				<row>
+					<label value="Unité monétaire:"></label> 
+					<menulist preference="pref-currencyUnit">
+						<menupopup>
+							<menuitem value="8364" label="€"/>
+						</menupopup>
+					</menulist>
+				</row>
+				<row>
+					<label value="Localisation du fichier:"/> 
+					<menulist preference="pref-dbloc-type">
+						<menupopup>
+							<menuitem value="0" label="Dans le chrome"/>
+							<menuitem value="1" label="En profile"/>
+						</menupopup>
+					</menulist>
+				</row>
+		
+				<row>
+					<label value="Nom du fichier:"></label>		
+					<textbox preference="pref-dbloc-path"/>
+				</row>
+			</rows>
+			
+		</grid>
+	</prefpane>
+
+</prefwindow>

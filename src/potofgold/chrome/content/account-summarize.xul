@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE overlay SYSTEM "chrome://potofgold/locale/main.dtd">
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+>
+	<groupbox id="account-summarize">
+		<caption label="&account_summarize.label;"/>
+		<grid>
+			<rows>
+				<row datasources="rdf:null" ref="*" querytype="storage">
+					<label value="&amount_total.label;:"/>
+					<template>
+						<query>select total(amount)/100 as stat from operations</query>
+						<action>
+							<label class="amount" uri="?" value="?stat"/>
+						</action>
+					</template>
+				</row>
+				<row datasources="rdf:null" ref="*" querytype="storage">
+					<label value="&month_diff.label;:"/>
+					<template>
+						<query>select total(amount)/100 as stat from operations where strftime('%s',date) > strftime('%s',date('now','start of month')) </query>
+						<action>
+							<label class="amount" uri="?" value="?stat"/>
+						</action>
+					</template>
+				</row>
+				<row datasources="rdf:null" ref="*" querytype="storage">
+					<label value="&last_batch.label;:"/>
+					<template>
+						<query>select max(date) as stat from operations</query>
+						<action>
+							<label uri="?" value="?stat"/>
+						</action>
+					</template>
+				</row>
+				<row datasources="rdf:null" ref="*" querytype="storage">
+					<label value="&amount_closed.label;:"/>
+					<template>
+						<query>select total(amount)/100 as stat from vw_oper where state = 4</query>
+						<action>
+							<label class="amount" uri="?" value="?stat"/>
+						</action>
+					</template>
+				</row>
+				<row datasources="rdf:null" ref="*" querytype="storage">
+					<label value="&last_close.label;:"/>
+					<template>
+						<query>select max(date) as stat from vw_oper where state=4</query>
+						<action>
+							<label uri="?" value="?stat"/>
+						</action>
+					</template>
+				</row>
+			</rows>
+		</grid>
+	</groupbox>
+</overlay>
+

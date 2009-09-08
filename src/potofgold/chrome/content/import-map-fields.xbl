@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dialog SYSTEM "chrome://potofgold/locale/main.dtd">
+<bindings xmlns="http://www.mozilla.org/xbl"
+	xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<binding id="dragboard">
+		<!-- content, property, method and event descriptions go here -->
+		<content>
+			<xul:vbox>
+				<xul:hbox>
+					<xul:groupbox id="import_list_fields" ondragover="nsDragAndDrop.dragOver(event, boardObserver2)" ondragdrop="nsDragAndDrop.drop(event, boardObserver2)">
+						<xul:caption label="&fields_list.label;"/>
+						<xul:label value="&id.label;:" ondraggesture="nsDragAndDrop.startDrag(event, listObserver)"/>
+						<xul:label value="&date.label;:" ondraggesture="nsDragAndDrop.startDrag(event, listObserver)"/>
+						<xul:label value="&others.label;:" ondraggesture="nsDragAndDrop.startDrag(event, listObserver)"/>
+						<xul:label value="&type.label;:" ondraggesture="nsDragAndDrop.startDrag(event, listObserver)" />
+						<xul:label value="&num.label;:" ondraggesture="nsDragAndDrop.startDrag(event, listObserver)"/>
+						<xul:label value="&categ.label;:" ondraggesture="nsDragAndDrop.startDrag(event, listObserver)"/>
+						<xul:label value="&amount.label;:" ondraggesture="nsDragAndDrop.startDrag(event, listObserver)"/>
+						<xul:label value="&state.label;:" ondraggesture="nsDragAndDrop.startDrag(event, listObserver)"/>
+					</xul:groupbox>
+					<xul:groupbox flex="1">
+						<xul:caption label="&sample_ope.label;"/>
+						<xul:grid flex="1">
+							<xul:rows id="import_map">
+								<xul:row>
+									<xul:label value="#1" class="field"
+										ondragover="nsDragAndDrop.dragOver(event, boardObserver)"
+										ondragdrop="nsDragAndDrop.drop(event, boardObserver)"
+										ondraggesture="nsDragAndDrop.startDrag(event, listObserver2)"/>
+									<xul:textbox value="val1" readonly="true"/>
+								</xul:row>
+							</xul:rows>
+						</xul:grid>
+					</xul:groupbox>
+				</xul:hbox>
+				<!-- -->
+				<xul:textbox id="debug" multiline="true" rows="10" style="height: 100px; display: none "/>
+			</xul:vbox>
+      
+		</content>
+		<implementation>
+			<property name="map">
+				<getter>
+				<![CDATA[
+
+
+					//saveMap();
+					return window.map;
+				]]>
+				</getter>
+			</property>
+			<property name="datas">
+				<setter>
+				<![CDATA[
+
+
+					//dbg("hello2");
+					//var window.map = null;
+					// initialisation du map su une préférence est trouvée
+					try {
+						window.map = ("" + Prefs.getImportMap()).split(",");
+						//dump2("pref map="+Prefs.getImportMap());
+					} catch (e) {
+						dump2(e);
+						//window.map = undefined;
+						//unset(window.map);
+					}
+					//dump2("pref map="+window.map);
+
+					if (!window.alreayMapped) {
+						// si pas déjà mappé
+						datas = val;
+						try {
+							const NB_MAX_FIELD = 2;
+							var docI = document;
+							var import_map = docI.getElementById("import_map");
+							var nbCol = Math.ceil(datas.length / NB_MAX_FIELD);
+							dump(import_map.nodeName + "\n");
+							var rows = import_map;
+							const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+							var n = import_map.getElementsByTagNameNS(XUL_NS,
+									"row")[0].childNodes;
+
+							var label0 = n.item(0);
+							var field0 = n.item(1);
+
+							while (import_map.hasChildNodes()) {
+								import_map
+										.removeChild(import_map.childNodes[0]);
+							}
+
+							for (var i = 0; i < nbCol; i++) {
+								var nbFieldAlreayAdd = 0;
+								var row = docI.createElementNS(XUL_NS, "row");
+								import_map.appendChild(row);
+								while (nbFieldAlreayAdd < NB_MAX_FIELD
+										&& datas.length > 0) {
+									var textField1 = field0.cloneNode(true);
+									var label = label0.cloneNode(true);
+									var pos = ((nbFieldAlreayAdd + 1) + (i * NB_MAX_FIELD));
+									if (window.map[pos - 1]) {
+										// si le map existe pour la position actuelle
+										// on mets le nom
+										// et la valeur
+										label.setAttribute("value",
+												map[pos - 1] + ":");
+										label.value2 = "#" + pos;
+									} else {
+										//sinon il n'y a que la valeur qui s'affiche
+										label.setAttribute("value", "#" + pos);
+									}
+									row.appendChild(label);
+									row.appendChild(textField1);
+									textField1.value = datas[0];
+									datas.shift();
+									nbFieldAlreayAdd++;
+								}
+							}
+
+							// permet de masquer les champs 
+							// si déjà positionnés 
+							if (window.map) {
+								var import_list_fields = document
+										.getElementById("import_list_fields");
+								for (var i = 0; i < import_list_fields.childNodes.length; i++) {
+									var source = import_list_fields.childNodes
+											.item(i);
+									if (source.value) {
+										// on enlève le : qu'on a ajouté
+										var labelSource = source.value
+												.substring(0,
+														source.value.length - 1);
+										dump2("source.value=" + labelSource
+												+ " "
+												+ map.indexOf(labelSource));
+										// si le label est trouvé dans le map
+										// on le masque
+										if (map.indexOf(labelSource) != -1) {
+											source.style.display = 'none';
+										}
+									}
+								}
+							}
+							//dump2(import_map);
+							window.alreayMapped = true;
+							//getMap();
+						} catch (e) {
+							dump(e + "\n");
+							dump("Line number: " + e.lineNumber + "\n");
+						}
+					}
+				]]>
+				</setter>
+			</property>
+		</implementation>
+	</binding>
+</bindings>
+

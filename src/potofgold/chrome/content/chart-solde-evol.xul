@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://potofgold/skin/main.css" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://potofgold/locale/main.dtd">
+<window id="chart-solde-evol"
+	title="&evol_solde.title;"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<script type="application/javascript" src="chrome://js/content/charts-datas.js"/>
+	<svg onmousemove="dispCoords(evt);"   xmlns="http://www.w3.org/2000/svg" id="svg" width="500px" height="300px" viewBox="0 0 500 300" version="1.1">
+		<defs>
+			<linearGradient id="green_red" x1="0%" y1="0%" x2="0%" y2="100%">
+				<stop offset="60%" style="stop-color:rgb(0,255,0);
+					stop-opacity:0.3"/>
+				<stop offset="95%" style="stop-color:rgb(255,255,0);
+					stop-opacity:0.3"/>
+			</linearGradient>
+		</defs>
+		<g fill="none" id="reperes" >
+			<g id="reperes_xy" stroke="black" stroke-width="1">
+				<line id="x"/>	
+				<line id="y"/>
+			</g>
+			<g stroke="grey" stroke-width="1" style="opacity: 0.3">
+				<g id="reperes_x">
+				</g>
+				<g id="reperes_y">
+				</g>
+			</g>
+			<g id="labels" stroke="black" stroke-width="1">
+				<g id="labels_x"/>
+				<g id="labels_y"/>
+			</g>
+			
+				
+		</g> 
+		<polyline id="oSolde" style="fill: url(#green_red);"/>
+		<polyline id="avg"/>
+		<circle id="amount" r="5"/>
+		<circle id="date" r="5"/>
+		<circle id="point" r="5"/>
+	</svg>
+	<hbox>
+		<label value="Montant"/>
+		<label id="amount2"/>
+		<label value="Date"/>
+		<label id="date2"/>
+	</hbox>
+</window>
