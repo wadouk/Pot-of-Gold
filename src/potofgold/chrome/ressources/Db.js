@@ -1,8 +1,15 @@
 Components.utils.import("resource://m/utils.js");
 Components.utils.import("resource://m/debug.js");
-var EXPORTED_SYMBOLS = ["db"];
+var EXPORTED_SYMBOLS = ["myDb"];
+
+var myDb;
+
+if (myDb || myDb == null) {
+	myDb = new db();
+}
 
 function db() {
+	dump2("db constructor");
 	this.mDBConn = null;
 
 	try {
@@ -38,7 +45,6 @@ function db() {
 				.getService(Components.interfaces.mozIStorageService);
 		this.mDBConn = storageService.openDatabase(file);
 		// this.mDBConn.beginTransaction();
-		// dump2("db constructor");
 		// Will also create the file if it does not exist
 	} catch (e) {
 		dump2(e);
