@@ -1,7 +1,7 @@
 pref("toolkit.defaultChromeURI", "chrome://potofgold/content/main.xul");
 pref("toolkit.defaultChromeFeatures", "chrome,resizable,center");
 pref("extensions.potofgold.dbloc.type", 0);
-pref("extensions.potofgold.dbloc.path", "potofgold.sqlite");
+pref("extensions.potofgold.dbloc.path", "potofgold-sample.sqlite");
 pref("extensions.potofgold.currencyUnit", 8364);
 
 pref("extensions.potofgold.find", "Ce mois,Dernier import");
