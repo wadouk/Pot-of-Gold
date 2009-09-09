@@ -8,39 +8,39 @@
 	minheight="300">
 	
 	<script type="application/javascript" src="chrome://js/content/others.js"/>
-	<tree id="tree_other" flex="1" datasources="rdf:null" ref="*" querytype="storage" editable="true" >
-		<treecols>
-			<treecol label="Tiers" sortActive="true" crop="none" flex="1" editable="true" sort="?other" id="col_other"/>
-			<splitter  class="tree-splitter"/>
-			<treecol label="Categorie" sortActive="true" crop="none" flex="1" editable="true" sort="?categ" id="col_categ"/>
-			<splitter  class="tree-splitter"/>
-			<treecol label="Crédit" sortActive="true" crop="none" flex="1" sort="?credit"/>
-			<splitter  class="tree-splitter"/>
-			<treecol label="Débit" sortActive="true" crop="none" flex="1" sort="?debit"/>
-			<splitter  class="tree-splitter"/>
-			<treecol label="#" sortActive="true" crop="none" sort="?nb_oper"/>
-		</treecols>
-		<template>
-			<query>select other, categ, 
+		<tree id="tree_other" flex="1" datasources="rdf:null" ref="*" querytype="storage" editable="true" >
+			<treecols>
+				<treecol label="Tiers" sortActive="true" crop="none" flex="1" editable="true" sort="?other" id="col_other"/>
+				<splitter  class="tree-splitter"/>
+				<treecol label="Categorie" sortActive="true" crop="none" flex="1" editable="true" sort="?categ" id="col_categ"/>
+				<splitter  class="tree-splitter"/>
+				<treecol label="Crédit" sortActive="true" crop="none" flex="1" sort="?credit" id="col_in"/>
+				<splitter  class="tree-splitter"/>
+				<treecol label="Débit" sortActive="true" crop="none" flex="1" sort="?debit" id="col_out"/>
+				<splitter  class="tree-splitter"/>
+				<treecol label="#" sortActive="true" crop="none" sort="?nb_oper" id="col_nb_oper"/>
+			</treecols>
+			<template>
+				<query>select other, categ, 
 			sum(credit) credit, sum(debit) debit, 
 			count(*) nb_oper
  from vw_oper
  where other is not null
  group by other, categ</query>
 			
-			<action>
-				<treechildren>
-					<treeitem uri="?">
-						<treerow>
-							<treecell label="?other"/>
-							<treecell label="?categ"/>
-							<treecell label="?credit" editable="false" />
-							<treecell label="?debit" editable="false" />
-							<treecell label="?nb_oper" editable="false" />
-						</treerow>
-					</treeitem>
-				</treechildren>
-			</action>
-		</template>
-	</tree>
+				<action>
+					<treechildren>
+						<treeitem uri="?">
+							<treerow>
+								<treecell label="?other" editable="true"/>
+								<treecell label="?categ" editable="true"/>
+								<treecell label="?credit" editable="false" />
+								<treecell label="?debit" editable="false" />
+								<treecell label="?nb_oper" editable="false" />
+							</treerow>
+						</treeitem>
+					</treechildren>
+				</action>
+			</template>
+		</tree>
 </window>
