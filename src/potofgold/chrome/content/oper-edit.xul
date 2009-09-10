@@ -54,10 +54,10 @@
 					<label value="&amount.label;"/>
 					<textbox id="oper-edit-amount" type="number" decimalplaces="2" min="-Infinity" hidespinbuttons="true" onchange="shouldHaveChanged(event);"/>
 				</row>
-				<row>
+				<row style="display:none">
 					<label value="&state.label;" />
 					<menulist id="oper-edit-state" disabled="true">
-						<menupopup class="oper">
+						<menupopup class="oper" >
 							<menuitem value="2" label="&state.new.label;" />
 							<menuitem value="3" label="&state.checked.label;" />
 							<menuitem value="4" label="&state.closed.label;"/>

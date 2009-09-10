@@ -208,40 +208,6 @@ function addDS() {
 
 }
 
-function hasAmount(myRootNode) {
-	// dump2("formatage de "+nodeToFormat.id);
-	return evalXPath(".//*[@class='amount']", myRootNode);
-}
-
-function formatCurrency(nl) {
-	var cpt = 0;
-	try {
-		// dump2("format de "+nl.length + " pour <" + myRootNode.nodeName +
-		// (myRootNode.id ? "id="+myRootNode.id :"") + ">");
-		cpt = nl.length;
-		// if (nl.length == 0)
-		// dump2("Impossible de formater, aucun amount");
-		for (var i = 0; i < nl.length; i++) {
-			if (nl[i].nodeName != "treecol") {
-				var attr = "";
-				if (nl[i].nodeName == "treecell")
-					attr = "label";
-				else
-					attr = "value";
-				var oldval = nl[i].getAttribute(attr);
-				var newval = currency(oldval);
-				if (oldval == newval)
-					cpt--;
-				nl[i].setAttribute(attr, newval);
-			}
-		}
-	} catch (e) {
-		dump2(e);
-	}
-	// dump2("format de "+cpt + " pour <" + myRootNode.nodeName + (myRootNode.id
-	// ? "id="+myRootNode.id :"") + ">");
-
-}
 
 // var alreadyLog = false;
 
@@ -270,13 +236,15 @@ function formatState() {
 	for (var i = 0; i < etatsN.length; i++) {
 		etats[etatsN[i].value] = etatsN[i].label;
 	}
+	//chrome://imgs/skin/tick.png
+	//chrome://imgs/skin/icon_link.png
 	// dump2(etats);
 	var colState = treeOpe.columns.getNamedColumn('tree-ope-col-state');
 	// dump2("treeOpe.view.rowCount="+treeOpe.view.rowCount);
 	for (var i = 0; i < treeOpe.view.rowCount; i++) {
 		var stateId = treeOpe.view.getCellText(i, colState);
 		// dump2(stateId + " = "+etats[stateId]);
-		treeOpe.view.setCellText(i, colState, etats[stateId]);
+		//treeOpe.view.setCellText(i, colState, etats[stateId]);
 	}
 }
 
@@ -508,7 +476,7 @@ function setEdit(selectedId, selectedNum, treeOpe) {
 			if (atLeastOneClosed) {
 				editField.setAttribute("disabled", "true");
 			} else {
-				if (editField.hasAttribute("disabled"))
+				if (editField.hasAttribute("disabled") && fieldName != "state")
 					editField.removeAttribute("disabled");
 				// editField.setAttribute(, "false");
 				// dump2("selectedNum.length="+selectedNum.length);
@@ -534,18 +502,24 @@ function setEdit(selectedId, selectedNum, treeOpe) {
 								+ "-" + d.getDate();
 					// editField.value = value;
 					break;
-				case "state" :
-					for (var j = 0; j < editField.firstChild.childNodes.length; j++) {
-						if (value == "" || value == "-") {
-							value = 2;
-							break;
-						}
-						if (editField.firstChild.childNodes.item(j).label == value) {
-							value = editField.firstChild.childNodes.item(j).value;
-							break;
-						}
-
-					}
+				// case "state" :
+				// for (var j = 0; j < editField.firstChild.childNodes.length;
+				// j++) {
+				// var properties =
+				// editField.firstChild.childNodes.item(j).properties.split("
+				// ");
+				// for (var k = 0;k<properties.length;i++) {
+				// if (properties[i].indexOf("state") != -1) {
+				// value = properties[i].substring(0,"state".length);
+				// break;
+				// }
+				// }
+				// if (value == "" || value == "-") {
+				// value = 2;
+				//							break;
+				//						}
+				//
+				//					}
 			}
 			editField.value = value;
 			editField.prevValue = value;

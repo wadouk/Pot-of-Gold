@@ -10,33 +10,35 @@
 	<script type="application/javascript" src="chrome://js/content/others.js"/>
 		<tree id="tree_other" flex="1" datasources="rdf:null" ref="*" querytype="storage" editable="true" >
 			<treecols>
-				<treecol label="Tiers" sortActive="true" crop="none" flex="1" editable="true" sort="?other" id="col_other"/>
+				<treecol label="Tiers" sortActive="true" crop="none" flex="3" editable="true" sortDirection="ascending" sort="?other" id="col_other"/>
 				<splitter  class="tree-splitter"/>
-				<treecol label="Categorie" sortActive="true" crop="none" flex="1" editable="true" sort="?categ" id="col_categ"/>
+				<treecol label="Categorie" sortActive="true" crop="none" flex="2" editable="true" sort="?categ" id="col_categ"/>
 				<splitter  class="tree-splitter"/>
-				<treecol label="Crédit" sortActive="true" crop="none" flex="1" sort="?credit" id="col_in"/>
+				<treecol label="Crédit" sortActive="true" class="amount" crop="none" flex="1" sort="?credit" id="col_in"/>
 				<splitter  class="tree-splitter"/>
-				<treecol label="Débit" sortActive="true" crop="none" flex="1" sort="?debit" id="col_out"/>
+				<treecol label="Débit" sortActive="true" class="amount" crop="none" flex="1" sort="?debit" id="col_out"/>
 				<splitter  class="tree-splitter"/>
 				<treecol label="#" sortActive="true" crop="none" sort="?nb_oper" id="col_nb_oper"/>
 			</treecols>
 			<template>
 				<query>select other, categ, 
-			sum(credit) credit, sum(debit) debit, 
+			cast(sum(credit) as real) /100 credit, 
+			cast(sum(debit) as real) / 100 debit, 
 			count(*) nb_oper
  from vw_oper
  where other is not null
- group by other, categ</query>
+ group by other, categ
+ order by other</query>
 			
 				<action>
-					<treechildren>
+					<treechildren id="treechild_other">
 						<treeitem uri="?">
 							<treerow>
-								<treecell label="?other" editable="true"/>
-								<treecell label="?categ" editable="true"/>
-								<treecell label="?credit" editable="false" />
-								<treecell label="?debit" editable="false" />
-								<treecell label="?nb_oper" editable="false" />
+								<treecell label="?other" properties="editable" editable="true"/>
+								<treecell label="?categ" properties="editable" editable="true"/>
+								<treecell label="?credit" class="amount" properties="protected cre" editable="false" />
+								<treecell label="?debit" class="amount" properties="protected deb" editable="false" />
+								<treecell label="?nb_oper" properties="protected" editable="false" />
 							</treerow>
 						</treeitem>
 					</treechildren>

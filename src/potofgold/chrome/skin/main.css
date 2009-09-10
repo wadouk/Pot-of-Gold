@@ -4,7 +4,10 @@
 	text-align: right;
 }
 
-svg {
+#svg_cross {
+	fill: none;
+}
+#chart-solde-evol > svg {
 	background-color: white;
 }
 
@@ -22,32 +25,21 @@ text {
 	stroke: green;
 	stroke-width:1;
 } 
-
+#cross > line{
+	stroke: black;
+	stroke-width:1;
+}
 #avg {
 	fill: none;
 	stroke: black;
 	stroke-width:1;
 
 }
-/*
-textbox{
+
+textbox[type="number"]{
 	height: 22px;
 	
-}*/
-/*
-#menu_refresh {
-  list-style-image: url('imgs/skin/action_refresh.png');
-}*//*
-textbox {
-	          background-color: #FFFF00;
-		  text-align: right;		
-		  color:black;
-		  border-color:black;
-		  border-width:1px;
-		  font-weight:bold; 
-		  font-style:normal;
-		  font-family:Courier New; 					    		    		    		    
-		}*/
+}
 #bank_amount, #diff, #last_closed {
 	text-align: right;
 	width: 50px;
@@ -65,6 +57,48 @@ textbox {
 	list-style-image:url("chrome://imgs/skin/table_gear.png");
 }
 
+treechildren::-moz-tree-cell(editable) {
+	cursor:vertical-text;
+}
+treechildren::-moz-tree-cell(protected) {
+	cursor:not-allowed;
+}
+
+treechildren::-moz-tree-cell-text(deb) {
+	color: red;
+}
+treechildren::-moz-tree-cell-text(cre) {
+	color: green;
+}
+
+treechildren::-moz-tree-image(state2) {
+	list-style-image:url("chrome://imgs/skin/money_add.png");
+}
+
+treechildren::-moz-tree-image(state3) {
+	list-style-image:url("chrome://imgs/skin/tick.png");
+}
+treechildren::-moz-tree-image(state4) {
+	list-style-image:url("chrome://imgs/skin/icon_link.png");
+}
+treechildren::-moz-tree-row(odd) {
+  background-color: #DDDDDD;
+}
+treechildren::-moz-tree-row(even) {
+  background-color: #EEEEEE;
+}
+
+treechildren::-moz-tree-row(hover) {
+  background-color: #FFFFFF;
+}
+treechildren::-moz-tree-row(selected) {
+  background-color: #EEEEFF;
+}
+
+treechildren::-moz-tree-cell-text(selected) {
+  color: black;
+  font-style: italic;
+}
 
 .icon_link{
 	list-style-image:url("chrome://imgs/skin/icon_link.png");

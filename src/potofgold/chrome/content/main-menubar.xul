@@ -59,7 +59,7 @@
 				<!--<menuitem name="custom_search" type="radio" command="oper:find:custo:last_import" id ="menuitem_lastimport"/>
 				<menuitem name="custom_search" type="radio" command="oper:find:custo:this_month" id ="menuitem_thismonth"/>-->
 				<menuseparator/>
-				<menuitem command="oper:renew"/>
+				<menuitem command="oper:renew" class="menuitem-iconic icon-opnew"/>
 				<menuitem command="oper:tocheck" class="menuitem-iconic tick"/>
 				<menuitem command="oper:toclose" class="menuitem-iconic icon_link"/>
 				<menuseparator/>

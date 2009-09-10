@@ -1,7 +1,8 @@
 Components.utils.import("resource://m/debug.js");
 
 var EXPORTED_SYMBOLS = ["prompts", "confirm2", "mainSB", "getContents",
-		"Prefs", "currency", "getDS", "evalXPath", "getDSLocation", "split"];
+		"Prefs", "currency", "getDS", "evalXPath", "getDSLocation", "split",
+		"hasAmount", "formatCurrency"];
 
 var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
 		.getService(Components.interfaces.nsIPromptService);
@@ -10,6 +11,40 @@ function getDS(doc) {
 	return evalXPath("//*[@datasources]", doc);
 }
 
+function hasAmount(myRootNode) {
+	// dump2("formatage de "+nodeToFormat.id);
+	return evalXPath(".//*[@class='amount']", myRootNode);
+}
+
+function formatCurrency(nl) {
+	var cpt = 0;
+	try {
+		// dump2("format de " + nl.length + " pour <" + myRootNode.nodeName
+		// + (myRootNode.id ? "id=" + myRootNode.id : "") + ">");
+		cpt = nl.length;
+		if (nl.length == 0)
+			dump2("Impossible de formater, aucun amount");
+		for (var i = 0; i < nl.length; i++) {
+			if (nl[i].nodeName != "treecol") {
+				var attr = "";
+				if (nl[i].nodeName == "treecell")
+					attr = "label";
+				else
+					attr = "value";
+				var oldval = nl[i].getAttribute(attr);
+				var newval = currency(oldval);
+				if (oldval == newval)
+					cpt--;
+				nl[i].setAttribute(attr, newval);
+			}
+		}
+	} catch (e) {
+		dump2(e);
+	}
+	// dump2("format de " + cpt + " pour <" + myRootNode.nodeName
+	// + (myRootNode.id ? "id=" + myRootNode.id : "") + ">");
+
+}
 
 function split(str, sep) {
 	var ar = str.split(sep);
@@ -98,7 +133,7 @@ function currency(anynum) {
 		}
 		var currencyUnit = Prefs.get("extensions.potofgold.currencyUnit");
 		return retval + " " + String.fromCharCode(currencyUnit);
-		//return retval + " " + currencyUnit;
+		// return retval + " " + currencyUnit;
 	} else {
 		// dump2(anynum + " d�j� format�");
 		return anynum;

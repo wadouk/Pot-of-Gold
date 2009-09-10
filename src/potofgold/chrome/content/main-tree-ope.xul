@@ -42,9 +42,11 @@
 							<treecell label="?other"/>
 							<treecell label="?type"/>
 							<treecell label="?categ"/>
-							<treecell class="amount" label="?amount_dbl"/>
+							<treecell class="amount" properties="?inout" label="?amount_dbl"/>
 							<treecell label="?num"/>
-							<treecell class="state" label="?state"/>
+							<treecell class="state" properties="state?state"/>
+							<!--<treecell class="state" label="chrome://imgs/skin/?state.png"/>-->
+							
 							<treecell label="?created"/>
 							<treecell label="?updated"/>
 							<treecell label="?checked"/>
