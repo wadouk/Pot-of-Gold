@@ -71,6 +71,9 @@ treechildren::-moz-tree-cell-text(cre) {
 	color: green;
 }
 
+treechildren::-moz-tree-cell-text(state2), treechildren::-moz-tree-cell-text(state3), treechildren::-moz-tree-cell-text(state4)  {
+	color: white;
+}
 treechildren::-moz-tree-image(state2) {
 	list-style-image:url("chrome://imgs/skin/money_add.png");
 }

@@ -8,20 +8,51 @@
 	minheight="300">
 	
 	<script type="application/javascript" src="chrome://js/content/others.js"/>
-		<tree id="tree_other" flex="1" datasources="rdf:null" ref="*" querytype="storage" editable="true" >
-			<treecols>
-				<treecol label="Tiers" sortActive="true" crop="none" flex="3" editable="true" sortDirection="ascending" sort="?other" id="col_other"/>
-				<splitter  class="tree-splitter"/>
-				<treecol label="Categorie" sortActive="true" crop="none" flex="2" editable="true" sort="?categ" id="col_categ"/>
-				<splitter  class="tree-splitter"/>
-				<treecol label="Crédit" sortActive="true" class="amount" crop="none" flex="1" sort="?credit" id="col_in"/>
-				<splitter  class="tree-splitter"/>
-				<treecol label="Débit" sortActive="true" class="amount" crop="none" flex="1" sort="?debit" id="col_out"/>
-				<splitter  class="tree-splitter"/>
-				<treecol label="#" sortActive="true" crop="none" sort="?nb_oper" id="col_nb_oper"/>
-			</treecols>
-			<template>
-				<query>select other, categ, 
+	<groupbox id="hello" datasources="rdf:null" ref="*" querytype="storage">
+		<caption label="Affectation des categories aux tiers"/>
+		<template>
+			<query>select cast(cn/tot*100 as int) cn, 
+				cast(cin/tot*100 as int) cin, 
+				tot,
+				nb_categ
+			from (
+				select cast(sum(cn) as real) cn , cast(sum(cin) as real) cin, cast(count(*) as real) tot, count(distinct categ) nb_categ
+				from (
+					select categ is null cn, categ is not null cin, categ
+					from (
+						select other, categ, 
+							cast(sum(credit) as real) /100 credit, 
+							cast(sum(debit) as real) / 100 debit, 
+							count(*) nb_oper
+						from vw_oper
+						where other is not null
+						group by other, categ
+						order by other
+						)
+					)
+				)</query>
+			<action>
+				<hbox>
+					<label  uri="?" value="?tot tiers dont ?cin^% avec l'une des ?nb_categ categorie:"/>
+					<progressmeter  uri="?" id="my-progressmeter" mode="determined" value="?cin" />
+				</hbox>
+			</action>
+		</template>
+	</groupbox>
+	<tree id="tree_other" flex="1" datasources="rdf:null" ref="*" querytype="storage" editable="true" >
+		<treecols>
+			<treecol label="Tiers" sortActive="true" crop="none" flex="3" editable="true" sortDirection="ascending" sort="?other" id="col_other"/>
+			<splitter  class="tree-splitter"/>
+			<treecol label="Categorie" sortActive="true" crop="none" flex="2" editable="true" sort="?categ" id="col_categ"/>
+			<splitter  class="tree-splitter"/>
+			<treecol label="Crédit" sortActive="true" class="amount" crop="none" flex="1" sort="?credit" id="col_in"/>
+			<splitter  class="tree-splitter"/>
+			<treecol label="Débit" sortActive="true" class="amount" crop="none" flex="1" sort="?debit" id="col_out"/>
+			<splitter  class="tree-splitter"/>
+			<treecol label="#" sortActive="true" crop="none" sort="?nb_oper" id="col_nb_oper"/>
+		</treecols>
+		<template>
+			<query>select other, categ, 
 			cast(sum(credit) as real) /100 credit, 
 			cast(sum(debit) as real) / 100 debit, 
 			count(*) nb_oper
@@ -30,19 +61,19 @@
  group by other, categ
  order by other</query>
 			
-				<action>
-					<treechildren id="treechild_other">
-						<treeitem uri="?">
-							<treerow>
-								<treecell label="?other" properties="editable" editable="true"/>
-								<treecell label="?categ" properties="editable" editable="true"/>
-								<treecell label="?credit" class="amount" properties="protected cre" editable="false" />
-								<treecell label="?debit" class="amount" properties="protected deb" editable="false" />
-								<treecell label="?nb_oper" properties="protected" editable="false" />
-							</treerow>
-						</treeitem>
-					</treechildren>
-				</action>
-			</template>
-		</tree>
+			<action>
+				<treechildren id="treechild_other">
+					<treeitem uri="?">
+						<treerow>
+							<treecell label="?other" properties="editable" editable="true"/>
+							<treecell label="?categ" properties="editable" editable="true"/>
+							<treecell label="?credit" class="amount" properties="protected cre" editable="false" />
+							<treecell label="?debit" class="amount" properties="protected deb" editable="false" />
+							<treecell label="?nb_oper" properties="protected" editable="false" />
+						</treerow>
+					</treeitem>
+				</treechildren>
+			</action>
+		</template>
+	</tree>
 </window>

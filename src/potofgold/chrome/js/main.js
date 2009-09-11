@@ -208,7 +208,6 @@ function addDS() {
 
 }
 
-
 // var alreadyLog = false;
 
 function getLastSeq() {
@@ -236,15 +235,15 @@ function formatState() {
 	for (var i = 0; i < etatsN.length; i++) {
 		etats[etatsN[i].value] = etatsN[i].label;
 	}
-	//chrome://imgs/skin/tick.png
-	//chrome://imgs/skin/icon_link.png
+	// chrome://imgs/skin/tick.png
+	// chrome://imgs/skin/icon_link.png
 	// dump2(etats);
 	var colState = treeOpe.columns.getNamedColumn('tree-ope-col-state');
 	// dump2("treeOpe.view.rowCount="+treeOpe.view.rowCount);
 	for (var i = 0; i < treeOpe.view.rowCount; i++) {
 		var stateId = treeOpe.view.getCellText(i, colState);
 		// dump2(stateId + " = "+etats[stateId]);
-		//treeOpe.view.setCellText(i, colState, etats[stateId]);
+		// treeOpe.view.setCellText(i, colState, etats[stateId]);
 	}
 }
 
@@ -457,13 +456,62 @@ function setEdit(selectedId, selectedNum, treeOpe) {
 
 	var atLeastOneClosed = false;
 	var colState = treeOpe.columns.getNamedColumn("tree-ope-col-state");
-	for (var i = 0; i < selectedNum.length; i++) {
-		var state = treeOpe.view.getCellText(selectedNum[i], colState);
-		var stateClosed = etats["4"];
-		if (stateClosed == state) {
+	for (var i = 0; i < selectedId.length; i++) {
+		var rs = myDb.get(["state"], "vw_oper", {
+					id : selectedId[i]
+				});
+		if (rs.state && rs.state.length == 1 ) {
+			dump2("state="+rs.state[0]);
+			if (rs.state[0] == 4) {
 			atLeastOneClosed = true;
 			break;
+			}
 		}
+		// myDb.get("state", "vw_oper", )
+		// var state
+		// dump2(selectedNum[i] + " " + colState);
+
+		// var properties = [];
+		// var properties = Components.classes["@mozilla.org/supports-array;1"]
+		// .createInstance(Components.interfaces.nsISupportsArray);
+		// treeOpe.view.getCellProperties(selectedNum[i], colState, properties);
+		// try {
+		// dump2("imageSrc="
+		// + treeOpe.view.getImageSrc(selectedNum[i], colState));
+		// } catch (e) {
+		// dump2(e);
+		// }
+		// var l = properties.GetIndexOf("state4");
+		// dump2("l="+l)
+		// if (l != -1) {
+		// atLeastOneClosed = true;
+		// break;
+		// }
+		// var enu = properties.Enumerate();
+		// try {
+		// while (true) {
+		// var el = enu.currentItem();
+		// // dump2(typeof el);
+		// if (el.equals("state4")) {
+		// atLeastOneClosed = true;
+		// break;
+		// }
+		// enu.next();
+		// }
+		// } catch (e) {
+		// };
+		// for (var i = 0; i < properties.Count(); i++) {
+		// dump2("ElementAt[" + i + "]=" + properties.ElementAt(i));
+		// if (properties.ElementAt(i) == "state4") {
+		// atLeastOneClosed = true;
+		// break;
+		// }
+		// }
+		// var stateClosed = etats["4"];
+		// if (stateClosed == state) {
+		// atLeastOneClosed = true;
+		// break;
+		// }
 	}
 
 	for (var i = 0; i < treeOpe.columns.length; i++) {
@@ -516,10 +564,10 @@ function setEdit(selectedId, selectedNum, treeOpe) {
 				// }
 				// if (value == "" || value == "-") {
 				// value = 2;
-				//							break;
-				//						}
+				// break;
+				// }
 				//
-				//					}
+				// }
 			}
 			editField.value = value;
 			editField.prevValue = value;
@@ -652,147 +700,147 @@ function findShowGoodSearchField(event) {
 			eField.removeAttribute("disabled");
 			row.appendChild(eField);
 			break;
-		break;	
-		default :
-			dump2("inconnu " + availableFields[fieldName]);
-			break;
-	}
+		break;
+	default :
+		dump2("inconnu " + availableFields[fieldName]);
+		break;
+}
 }
 
 function find() {
-	var search = document.getElementById("search");
-	var rowsNode = search.firstChild.firstChild;
-	var nbRows = rowsNode.childNodes.length;
-	var treeOpe = document.getElementById("tree-ope");
-	var templateNode = treeOpe.childNodes.item(1);
-	// dump2("templateNodeName=" + templateNode.nodeName);
-	var queryNode = templateNode.firstChild;
-	// dump2("queryNodeName=" + queryNode.nodeName);
-	var request = queryNode.textContent;
-	// dump2("request=" + request);
-	var doDom = true;
-	if (doDom) {
-		while (queryNode.hasChildNodes()) {
-			queryNode.removeChild(queryNode.firstChild);
-		}
-		// dump2("queryNode.hasChildNodes="+queryNode.hasChildNodes());
+var search = document.getElementById("search");
+var rowsNode = search.firstChild.firstChild;
+var nbRows = rowsNode.childNodes.length;
+var treeOpe = document.getElementById("tree-ope");
+var templateNode = treeOpe.childNodes.item(1);
+// dump2("templateNodeName=" + templateNode.nodeName);
+var queryNode = templateNode.firstChild;
+// dump2("queryNodeName=" + queryNode.nodeName);
+var request = queryNode.textContent;
+// dump2("request=" + request);
+var doDom = true;
+if (doDom) {
+	while (queryNode.hasChildNodes()) {
+		queryNode.removeChild(queryNode.firstChild);
 	}
+	// dump2("queryNode.hasChildNodes="+queryNode.hasChildNodes());
+}
 
-	if (nbRows > 0) {
-		if (request.indexOf("where") != -1) {
-			request = request.substring(0, request.indexOf("where"));
-		}
-		request += " where 1=1 ";
+if (nbRows > 0) {
+	if (request.indexOf("where") != -1) {
+		request = request.substring(0, request.indexOf("where"));
 	}
-	var params = {};
-	for (var i = 0; i < nbRows; i++) {
-		var row = rowsNode.childNodes.item(i);
-		var field = row.childNodes.item(0).value;
-		var operand = row.childNodes.item(1).value;
-		var value = row.childNodes.item(2).value;
-		var paramName = (field + i);
-		if (operand == "like")
-			value = "%" + value + "%";
-		if (availableFields[field] == "s" || availableFields[field] == "d")
-			value = "'" + value + "'";
-		/*
-		 * else { if (value.indexOf(",") != -1) { value =
-		 * value.replace(",","."); //row.childNodes.item(2).value = value; } }
-		 */
-		request += " and " + field + " " + operand + " " + value + " ";
-		params[paramName] = value;
-	}
-	// dump2("request=" + request);
-	if (doDom) {
-		// dump2("queryNode.childLength="+queryNode.childNodes.length);
-		queryNode.appendChild(document.createTextNode(request));
-		// dump2("queryNode.childLength="+queryNode.childNodes.length);
-		/*
-		 * for (var field in params) { var paramNode =
-		 * document.createElement("param");
-		 * paramNode.appendChild(document.createTextNode(params[field]));
-		 * paramNode.setAttribute("name", field);
-		 * 
-		 * queryNode.appendChild(paramNode); //
-		 * dump2("params["+field+"]="+params[field]); }
-		 */
-		// dump2("queryNode.childLength="+queryNode.childNodes.length);
-		dumpNode(queryNode);
-		treeOpe.builder.rebuild();
-	}
+	request += " where 1=1 ";
+}
+var params = {};
+for (var i = 0; i < nbRows; i++) {
+	var row = rowsNode.childNodes.item(i);
+	var field = row.childNodes.item(0).value;
+	var operand = row.childNodes.item(1).value;
+	var value = row.childNodes.item(2).value;
+	var paramName = (field + i);
+	if (operand == "like")
+		value = "%" + value + "%";
+	if (availableFields[field] == "s" || availableFields[field] == "d")
+		value = "'" + value + "'";
+	/*
+	 * else { if (value.indexOf(",") != -1) { value = value.replace(",",".");
+	 * //row.childNodes.item(2).value = value; } }
+	 */
+	request += " and " + field + " " + operand + " " + value + " ";
+	params[paramName] = value;
+}
+// dump2("request=" + request);
+if (doDom) {
+	// dump2("queryNode.childLength="+queryNode.childNodes.length);
+	queryNode.appendChild(document.createTextNode(request));
+	// dump2("queryNode.childLength="+queryNode.childNodes.length);
+	/*
+	 * for (var field in params) { var paramNode =
+	 * document.createElement("param");
+	 * paramNode.appendChild(document.createTextNode(params[field]));
+	 * paramNode.setAttribute("name", field);
+	 * 
+	 * queryNode.appendChild(paramNode); //
+	 * dump2("params["+field+"]="+params[field]); }
+	 */
+	// dump2("queryNode.childLength="+queryNode.childNodes.length);
+	dumpNode(queryNode);
+	treeOpe.builder.rebuild();
+}
 }
 
 function findDel() {
-	var search = document.getElementById("search");
-	if (search.firstChild.firstChild.childNodes.length > 1)
-		search.firstChild.firstChild
-				.removeChild(search.firstChild.firstChild.lastChild);
-	else {
-		findShow();
-	}
+var search = document.getElementById("search");
+if (search.firstChild.firstChild.childNodes.length > 1)
+	search.firstChild.firstChild
+			.removeChild(search.firstChild.firstChild.lastChild);
+else {
+	findShow();
+}
 }
 
 function save() {
-	var focusedElement = document.commandDispatcher.focusedElement;
-	if (focusedElement && focusedElement != null)
-		focusedElement.blur();
-	if (modifiedFields.hasChanges) {
-		dump2("save ");
-		var operEditId = document.getElementById("oper-edit-id");
-		var idToUpdate = split(operEditId.value, ",");
-		if (idToUpdate.length == 0) {
-			// récupérer tous les champs pas forcément modifié
-			// et qui ont une valeur pourtant
-			// comme la date
-			modifiedFields.add("date", document
-							.getElementById("oper-edit-date").value);
-			modifiedFields.add("amount", document
-							.getElementById("oper-edit-amount").value);
-			// le montant
-			// le statut, pas en création (en fait jamais ici)
-		} else {
-			modifiedFields.add("id", idToUpdate);
-		}
-		var fieldsToExec = modifiedFields.keys;
-		var toExec = {};
-		for (var i = 0; i < modifiedFields.keys.length; i++) {
-			var fieldName = modifiedFields.keys[i];
-			toExec[fieldName] = modifiedFields[fieldName];
-		}
-		dump2("toExec");
-		dump2(toExec);
-		myDb.exec(toExec, "operations");
-		modifiedFields = new ModifiedFields();
-		addDS();
+var focusedElement = document.commandDispatcher.focusedElement;
+if (focusedElement && focusedElement != null)
+	focusedElement.blur();
+if (modifiedFields.hasChanges) {
+	dump2("save ");
+	var operEditId = document.getElementById("oper-edit-id");
+	var idToUpdate = split(operEditId.value, ",");
+	if (idToUpdate.length == 0) {
+		// récupérer tous les champs pas forcément modifié
+		// et qui ont une valeur pourtant
+		// comme la date
+		modifiedFields.add("date",
+				document.getElementById("oper-edit-date").value);
+		modifiedFields.add("amount", document
+						.getElementById("oper-edit-amount").value);
+		// le montant
+		// le statut, pas en création (en fait jamais ici)
 	} else {
-		dump2("rien à save");
+		modifiedFields.add("id", idToUpdate);
 	}
+	var fieldsToExec = modifiedFields.keys;
+	var toExec = {};
+	for (var i = 0; i < modifiedFields.keys.length; i++) {
+		var fieldName = modifiedFields.keys[i];
+		toExec[fieldName] = modifiedFields[fieldName];
+	}
+	dump2("toExec");
+	dump2(toExec);
+	myDb.exec(toExec, "operations");
+	modifiedFields = new ModifiedFields();
+	addDS();
+} else {
+	dump2("rien à save");
+}
 }
 
 function treeOpeSelect() {
-	// cancel();
-	// dump2("select");
-	if (document.commandDispatcher.focusedElement)
-		dump2("nodeName=" + document.commandDispatcher.focusedElement.blur());
-	var treeOpe = document.getElementById("tree-ope");
+// cancel();
+// dump2("select");
+if (document.commandDispatcher.focusedElement)
+	dump2("nodeName=" + document.commandDispatcher.focusedElement.blur());
+var treeOpe = document.getElementById("tree-ope");
 
-	var idList = getTreeSelection(treeOpe);
-	var selectedNum = [];
-	var selectedId = [];
-	for (var i = 0; i < idList.length; i++) {
-		selectedNum.push(idList[i].num);
-		selectedId.push(idList[i].id);
-	}
-	setEdit(selectedId, selectedNum, treeOpe);
-	return true;
+var idList = getTreeSelection(treeOpe);
+var selectedNum = [];
+var selectedId = [];
+for (var i = 0; i < idList.length; i++) {
+	selectedNum.push(idList[i].num);
+	selectedId.push(idList[i].id);
+}
+setEdit(selectedId, selectedNum, treeOpe);
+return true;
 }
 
 function import1() {
-	// dump2("ici");
-	window.open("chrome://potofgold/content/import.xul", "import",
-			"chrome,width=600,height=300,resizable=yes,modal");
+// dump2("ici");
+window.open("chrome://potofgold/content/import.xul", "import",
+		"chrome,width=600,height=300,resizable=yes,modal");
 
-	// dump2("là");
-	addDS();
-	// dump2("fin");
+// dump2("là");
+addDS();
+// dump2("fin");
 }

@@ -33,9 +33,11 @@ function formatCurrency(nl) {
 					attr = "value";
 				var oldval = nl[i].getAttribute(attr);
 				var newval = currency(oldval);
-				if (oldval == newval)
+				if (oldval == newval) {
 					cpt--;
-				nl[i].setAttribute(attr, newval);
+				} else {
+					nl[i].setAttribute(attr, newval);
+				}
 			}
 		}
 	} catch (e) {

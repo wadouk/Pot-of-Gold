@@ -36,7 +36,7 @@
 			<action>
 				<treechildren id="treeChildOpe">
 					<treeitem uri="?">
-						<treerow>
+						<treerow >
 							<treecell label="?id"/>
 							<treecell label="?date"/>
 							<treecell label="?other"/>

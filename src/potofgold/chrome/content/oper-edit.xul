@@ -23,7 +23,7 @@
 					<label value="&type.label;"/>
 					<menulist id="oper-edit-type" editable="true" ref="*" datasources="rdf:null" querytype="storage" onblur="shouldHaveChanged(event);" >
 						<template>
-							<query>select distinct type from vw_oper </query>
+							<query>select distinct type from vw_oper order by type</query>
 							<action>
 								<menupopup>
 									<menuitem uri="?" label="?type"/>
@@ -41,7 +41,7 @@
 					<label value="&categ.label;"/>
 					<menulist id="oper-edit-categ" editable="true" onblur="shouldHaveChanged(event);" ref="*" datasources="rdf:null" querytype="storage" >
 						<template>
-							<query>select distinct categ from vw_oper where categ is not null and categ &lt;&gt; ''</query>
+							<query>select distinct categ from vw_oper where categ is not null and categ &lt;&gt; '' order by categ</query>
 							<action>
 								<menupopup>
 									<menuitem uri="?" label="?categ"/>

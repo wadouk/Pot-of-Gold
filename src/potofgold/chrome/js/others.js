@@ -16,9 +16,11 @@ function editListener(event) {
 	// }
 	try {
 		if (treeOther.editingRow != -1 && event.attrName == "label") {
-			var dbcol = treeOther.editingColumn.id.split("_")[1];
-			if (!event.prevValue.match(/\d*(.\d*){0,1}/)) {
-				// dump2("**editListener");
+			// dump2("match=" + (event.prevValue) + "* " + r);
+			if (event.newValue == treeOther.view.getCellText(
+					treeOther.editingRow, treeOther.editingColumn)) {
+				dump2("**editListener");
+				var dbcol = treeOther.editingColumn.id.split("_")[1];
 				// dump2("parentNode="+(event.relatedNode.parentNode == null));
 				// dump2("parentNode="+event.relatedNode.parentNode);
 				// dumpNode(event.relatedNode);
@@ -38,46 +40,55 @@ function editListener(event) {
 					other = treeOther.view.getCellText(row,
 							treeOther.columns[0]);
 				}
-				if (other == "") {
-					other = "null";
-				} else {
-					other = "'" + other + "'";
-				}
+				// if (other == "") {
+				// other = "null";
+				// } else {
+				// other = "'" + other + "'";
+				// }
+				var upd = new Upd();
+				upd.table = "operations";
 				var categ = treeOther.view.getCellText(row,
 						treeOther.columns[1]);
 				// dump2(other + "," + col + "," + value);
 				var newValue = event.newValue;
-				if (newValue == "") {
-					newValue = "null"
-				} else {
-					newValue = "'" + newValue + "'";
-				}
+				// if (newValue == "") {
+				// newValue = "null"
+				// } else {
+				// newValue = "'" + newValue + "'";
+				// }
+
+				upd.newVals[dbcol] = newValue;
+				upd.oldVals["other"] = other;
 				var request = "update operations set " + dbcol + " = "
 						+ newValue + " where other=" + other + " ";
 				if (dbcol != "other") {
-					if (event.prevValue == "") {
-						request += " and " + dbcol + " is null";
-					} else {
-						request += " and " + dbcol + " = '" + event.prevValue
-								+ "'";
-					}
+					upd.oldVals[dbcol] = event.prevValue;
+					// if (event.prevValue == "") {
+					// request += " and " + dbcol + " is null";
+					// } else {
+					// request += " and " + dbcol + " = '" + event.prevValue
+					// + "'";
+					// }
 				}
-
-				var statement;
+				myDb.execByOther(upd, expectedChanges);
+				// var statement;
 				// dump2(request);
-				try {
-					statement = myDb.mDBConn.createStatement(request);
-					myDb.mDBConn.beginTransaction();
-					statement.execute();
-					myDb.check(expectedChanges);
-					myDb.mDBConn.commitTransaction();
-				} catch (e) {
-					if (myDb.mDBConn.transactionInProgress)
-						myDb.mDBConn.rollbackTransaction();
-					dump2("lastErrorString=" + myDb.mDBConn.lastErrorString);
-					throw e;
-				}
-				treeOther.builder.rebuild();
+				// try {
+				// statement = myDb.mDBConn.createStatement(request);
+				// myDb.mDBConn.beginTransaction();
+				// statement.execute();
+				// myDb.check(expectedChanges);
+				// myDb.mDBConn.commitTransaction();
+				// } catch (e) {
+				// if (myDb.mDBConn.transactionInProgress)
+				// myDb.mDBConn.rollbackTransaction();
+				// dump2("lastErrorString=" + myDb.mDBConn.lastErrorString);
+				// throw e;
+				// }
+				// treeOther.builder.rebuild();
+				init();
+				// } else {
+				// dump2("match");
 			}
 		}
 	} catch (e) {
@@ -97,20 +108,24 @@ var someBuildListener = {
 	}
 }
 
-function init() {
+function init(event) {
 	try {
+		// dump2(event);
 		var list = getDS(document.firstChild);
 		var ds = getDSLocation();
-		treeOther = document.getElementById("tree_other");
-
+		dump2("list.length=" + list.length);
 		// dump2("startEditing");
 		// dump2(treeOther.startEditing);
 		//
 		// dump2("stopEditing");
 		// dump2(treeOther.stopEditing);
 
-		treeOther.addEventListener("DOMAttrModified", editListener, true);
-		treeOther.builder.addListener(someBuildListener);
+		if (event) {
+			dump2("event listener sur tree");
+			treeOther = document.getElementById("tree_other");
+			treeOther.addEventListener("DOMAttrModified", editListener, true);
+			treeOther.builder.addListener(someBuildListener);
+		}
 		for (var i = 0; i < list.length; i++) {
 			if (list[i].datasources != ds)
 				list[i].datasources = ds;

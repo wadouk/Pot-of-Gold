@@ -1,11 +1,22 @@
 Components.utils.import("resource://m/utils.js");
 Components.utils.import("resource://m/debug.js");
-var EXPORTED_SYMBOLS = ["myDb"];
+var EXPORTED_SYMBOLS = ["myDb", "Upd", "Ins"];
 
 var myDb;
 
 if (myDb || myDb == null) {
 	myDb = new db();
+}
+
+function Upd() {
+	this.table = "";
+	this.newVals = {};
+	this.oldVals = {};
+}
+
+function Ins() {
+	this.table = "";
+	this.vals = [];
 }
 
 function db() {
@@ -72,18 +83,20 @@ db.prototype.bind = function(statement, where) {
 db.prototype.get = function(select, tableName, where) {
 	var request = "";
 	request = "select " + select.join(",");
-	if (tableName && tableName != null)
+	if (tableName && tableName != null) {
 		request += " from " + tableName;
-	if (where && where != null && where.length > 0) {
-		request += " where ";
-		for (var fields in where) {
-			request += " " + fields + "=:" + fields;
+		if (where && where != null) {
+			for (var fields in where) {
+				if (request.indexOf("where") == -1)
+					request += " where ";
+				request += " " + fields + "=:" + fields;
+			}
 		}
 	}
 	request += ";";
 	dump2("request=" + request);
 	var statement = this.mDBConn.createStatement(request);
-	if (where && where != null && where.length > 0)
+	if (request.indexOf("where") != -1)
 		this.bind(statement, where);
 	var result = {};
 	var curLine = 0;
@@ -155,14 +168,68 @@ db.prototype.del = function(tableName, id) {
 	request += " where ";
 	request += " id = :id";
 	request += ";";
-	dump2("request=" + request);
+	this.execRequest(request, {
+				"id" : id
+			}, 1);
+
+	// dump2("request=" + request);
+	// var statement;
+	// try {
+	// statement = this.mDBConn.createStatement(request);
+	// statement.bindStringParameter(0, id);
+	// this.mDBConn.beginTransaction();
+	// statement.execute();
+	// this.check(1);
+	// this.mDBConn.commitTransaction();
+	// } catch (e) {
+	// if (this.mDBConn.transactionInProgress)
+	// this.mDBConn.rollbackTransaction();
+	// dump2("lastErrorString=" + this.mDBConn.lastErrorString);
+	// throw e;
+	// }
+
+}
+db.prototype.execByOther = function(obj, expectedChanges) {
+
+	if (obj instanceof Upd) {
+		var toBind = {};
+		var iParamToBind = 0;
+		var request = "update " + obj.table + " set ";
+		for (var val in obj.newVals) {
+			request += val + "=:" + val + iParamToBind;
+			request += ", ";
+			toBind[val + iParamToBind] = obj.newVals[val];
+			iParamToBind++;
+		}
+		request = request.substring(0, request.length - ", ".length);
+		request += " where ";
+		for (var val in obj.oldVals) {
+			if (obj.oldVals[val] == "") {
+				request += val + " is null";
+			} else {
+				request += val + "=:" + val + iParamToBind;
+				toBind[val + iParamToBind] = obj.oldVals[val];
+				iParamToBind++;
+			}
+			// request += val + "=:" + obj.oldVals[val];
+			request += " and ";
+		}
+		request = request.substring(0, request.length - " and ".length);
+		this.execRequest(request, toBind, expectedChanges);
+	} else if (obj instanceof Ins) {
+
+	}
+
+}
+db.prototype.execRequest = function(request, params, expectedChanges) {
+	dump2(request);
 	var statement;
 	try {
 		statement = this.mDBConn.createStatement(request);
-		statement.bindStringParameter(0, id);
+		this.bind(statement, params);
 		this.mDBConn.beginTransaction();
 		statement.execute();
-		this.check(1);
+		this.check(expectedChanges);
 		this.mDBConn.commitTransaction();
 	} catch (e) {
 		if (this.mDBConn.transactionInProgress)
@@ -221,19 +288,5 @@ db.prototype.exec = function(obj, tableName) {
 		request += ");";
 		expectedChanges++;
 	}
-	dump2(request);
-	var statement;
-	try {
-		statement = this.mDBConn.createStatement(request);
-		this.bind(statement, obj);
-		this.mDBConn.beginTransaction();
-		statement.execute();
-		this.check(expectedChanges);
-		this.mDBConn.commitTransaction();
-	} catch (e) {
-		if (this.mDBConn.transactionInProgress)
-			this.mDBConn.rollbackTransaction();
-		dump2("lastErrorString=" + this.mDBConn.lastErrorString);
-		throw e;
-	}
+	this.execRequest(request, obj, expectedChanges);
 };
