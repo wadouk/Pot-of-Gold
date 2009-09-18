@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://potofgold/skin/main.css" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://potofgold/locale/main.dtd">
+<window id="categs"
+	title="&categ.label;"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	minwidth="500"
+	minheight="300">
+	<script type="application/javascript" src="chrome://js/content/categs.js"/>
+	
+	<tree id="tree_categ" flex="1" datasources="rdf:null" ref="*" querytype="storage" editable="true" >
+		<treecols>
+			<treecol label="&categ.label;" sortActive="true" crop="none" flex="3" editable="true" sort="?categ" id="col_categ"/>
+			<splitter  class="tree-splitter"/>
+			<treecol label="&credit.label;" sortActive="true" class="amount" crop="none" flex="1" sort="?credit" id="col_in"/>
+			<splitter  class="tree-splitter"/>
+			<treecol label="&debit.label;" sortActive="true" class="amount" crop="none" flex="1" sort="?debit" id="col_out"/>
+			<splitter  class="tree-splitter"/>
+			<treecol label="&nb_oper;" sortActive="true" crop="none" sort="?nb_oper" id="col_nb_oper" flex="1"/>
+			<splitter  class="tree-splitter"/>
+			<treecol label="&nb_other;" sortActive="true" crop="none" sort="?nb_other" id="col_nb_other" flex="1"/>
+			<splitter  class="tree-splitter"/>
+		</treecols>
+		<template>
+			<query>select  categ, 
+			cast(sum(credit) as real) /100 credit, 
+			cast(sum(debit) as real) / 100 debit, 
+			count(*) nb_oper,
+			count(distinct other) nb_other
+			 from vw_oper
+			 --where categ is not null
+			 group by categ
+			 order by categ</query>
+			
+			<action>
+				<treechildren>
+					<treeitem uri="?">
+						<treerow>
+							<treecell label="?categ" properties="editable" editable="true"/>
+							<treecell label="?credit" class="amount" properties="protected cre" editable="false" />
+							<treecell label="?debit" class="amount" properties="protected deb" editable="false" />
+							<treecell label="?nb_oper" properties="protected" editable="false" />
+							<treecell label="?nb_other" properties="protected" editable="false" />
+						</treerow>
+					</treeitem>
+				</treechildren>
+			</action>
+		</template>
+	</tree>
+</window>
