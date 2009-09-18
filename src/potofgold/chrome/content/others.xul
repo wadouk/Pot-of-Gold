@@ -2,14 +2,14 @@
 <?xml-stylesheet href="chrome://potofgold/skin/main.css" type="text/css"?>
 <!DOCTYPE window SYSTEM "chrome://potofgold/locale/main.dtd">
 <window id="others"
-	title="Tiers"
+	title="&others.label;"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
 	minwidth="500"
 	minheight="300">
 	
 	<script type="application/javascript" src="chrome://js/content/others.js"/>
 	<groupbox id="hello" datasources="rdf:null" ref="*" querytype="storage">
-		<caption label="Affectation des categories aux tiers"/>
+		<caption label="&affect_categ_to_other;"/>
 		<template>
 			<query>select cast(cn/tot*100 as int) cn, 
 				cast(cin/tot*100 as int) cin, 
@@ -33,23 +33,23 @@
 				)</query>
 			<action>
 				<hbox>
-					<label  uri="?" value="?tot tiers dont ?cin^% avec l'une des ?nb_categ categorie:"/>
-					<progressmeter  uri="?" id="my-progressmeter" mode="determined" value="?cin" />
+					<label  uri="?" value="&stat_tiers;"/>
+					<progressmeter  uri="?" id="my-progressmeter" mode="determined" value="?cin" flex="1" />
 				</hbox>
 			</action>
 		</template>
 	</groupbox>
 	<tree id="tree_other" flex="1" datasources="rdf:null" ref="*" querytype="storage" editable="true" >
 		<treecols>
-			<treecol label="Tiers" sortActive="true" crop="none" flex="3" editable="true" sortDirection="ascending" sort="?other" id="col_other"/>
+			<treecol label="&other.label;" sortActive="true" crop="none" flex="4" editable="true" sortDirection="ascending" sort="?other" id="col_other"/>
 			<splitter  class="tree-splitter"/>
-			<treecol label="Categorie" sortActive="true" crop="none" flex="2" editable="true" sort="?categ" id="col_categ"/>
+			<treecol label="&categ.label;" sortActive="true" crop="none" flex="3" editable="true" sort="?categ" id="col_categ"/>
 			<splitter  class="tree-splitter"/>
-			<treecol label="Crédit" sortActive="true" class="amount" crop="none" flex="1" sort="?credit" id="col_in"/>
+			<treecol label="&credit.label;" sortActive="true" class="amount" crop="none" flex="2" sort="?credit" id="col_in"/>
 			<splitter  class="tree-splitter"/>
-			<treecol label="Débit" sortActive="true" class="amount" crop="none" flex="1" sort="?debit" id="col_out"/>
+			<treecol label="&debit.label;" sortActive="true" class="amount" crop="none" flex="2" sort="?debit" id="col_out"/>
 			<splitter  class="tree-splitter"/>
-			<treecol label="#" sortActive="true" crop="none" sort="?nb_oper" id="col_nb_oper"/>
+			<treecol label="&nb_oper;" sortActive="true" crop="none" sort="?nb_oper" flex="1" id="col_nb_oper"/>
 		</treecols>
 		<template>
 			<query>select other, categ, 

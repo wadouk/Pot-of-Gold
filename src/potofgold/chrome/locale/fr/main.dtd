@@ -4,6 +4,10 @@
 <!ENTITY tocreate.label "Créer">
 <!ENTITY last_closed.label "Dernière pointée">
 <!ENTITY others.label "Tiers">
+<!ENTITY affect_categ_to_other "Affectation des categories aux tiers">
+<!ENTITY nb_other "Nb tiers">
+<!ENTITY nb_oper "Nb oper.">
+<!ENTITY stat_tiers "?tot tiers dont ?cin^&#37; avec l'une des ?nb_categ categories:">
 <!ENTITY categs.label "Catégories">
 <!ENTITY evol_solde.title "Evolution du solde">
 <!ENTITY custo.label "Personnalisée">
@@ -55,6 +59,8 @@
 
 <!ENTITY closed_less.label "Pointée au débit">
 <!ENTITY closed_more.label "Pointée au crédit">
+<!ENTITY credit.label "Crédit">
+<!ENTITY debit.label "Débit">
 
 
 <!ENTITY amount_closedorchecked.label "Solde pointé ou rapproché">

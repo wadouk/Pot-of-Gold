@@ -1,7 +1,13 @@
 @import url(chrome://global/skin);
-
-.amount{
+#main-left, #main-right {
+	overflow: auto;
+}
+.amount, #col_nb_oper, #col_nb_other {
 	text-align: right;
+}
+
+#tree_categ {
+	overflow-y: scroll;
 }
 
 #svg_cross {
@@ -10,6 +16,7 @@
 #chart-solde-evol > svg {
 	background-color: white;
 }
+
 
 circle#date, circle#amount {
 	fill: red;

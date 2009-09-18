@@ -275,6 +275,15 @@ function showOthers() {
 		dump2(e);
 	}
 }
+function showCategs() {
+	try {
+		var url = "chrome://potofgold/content/categs.xul";
+		var features = "chrome,titlebar,toolbar,centerscreen,resizable=yes";
+		show(url, null, features);
+	} catch (e) {
+		dump2(e);
+	}
+}
 
 function showChartSoleEval() {
 	try {

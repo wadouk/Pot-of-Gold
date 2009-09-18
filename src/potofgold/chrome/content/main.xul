@@ -12,8 +12,8 @@
 	<script type="application/javascript" src="chrome://js/content/main.js"/>
 
 	<menubar id="main-menubar"/>
-	<hbox>
-		<vbox id="main-left" flex="1"/>
+	<hbox flex="1">
+		<vbox id="main-left"/>
 		<vbox id="main-right"/>
 	</hbox>
 	<statusbar>

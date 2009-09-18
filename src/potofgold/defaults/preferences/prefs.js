@@ -1,5 +1,5 @@
 pref("toolkit.defaultChromeURI", "chrome://potofgold/content/main.xul");
-pref("toolkit.defaultChromeFeatures", "chrome,resizable,center");
+//pref("toolkit.defaultChromeFeatures", "chrome,resizable=yes,center=yes,minimizable=yes,maximizable=yes");
 pref("extensions.potofgold.dbloc.type", 0);
 pref("extensions.potofgold.dbloc.path", "potofgold-sample.sqlite");
 pref("extensions.potofgold.currencyUnit", 8364);

@@ -22,7 +22,7 @@
 		<command id="oper:tocheck" label="&tocheck.label;" oncommand="check();" />
 		<command id="oper:toclose" label="&tocloser.label;" oncommand="close()"/>
 		<command id="oper:others" label="&other.label;" oncommand="showOthers()" />
-		<command id="oper:categs" label="&categ.label;" />
+		<command id="oper:categs" label="&categ.label;" oncommand="showCategs()" />
 		<command id="about:config" label="about:config" oncommand="showFullConfig()" />
 		<command id="jsconsole" label="jsconsole" oncommand="showJsConsole()" />
 		<command id="chart:evol_solde" label="&amount_change.label;" oncommand="showChartSoleEval()" />
