@@ -267,6 +267,8 @@ function build_check() {
 }
 
 function put_in_db() {
+    try {
+        dump2("put in db");
 	var myTree = document.getElementById("import-check-tree");
 	var colDate = myTree.columns.getColumnAt(1);
 	var colTiers = myTree.columns.getColumnAt(2);
@@ -275,10 +277,10 @@ function put_in_db() {
 	var colMontant = myTree.columns.getColumnAt(5);
 	var colNum = myTree.columns.getColumnAt(6);
 
-	var curdb = new db();
-	curdb.mDBConn.beginTransaction();
+	//var curdb = new db();
+	//myDb.mDBConn.beginTransaction();
 	for (var i = 0; i < myTree.view.rowCount; i++) {
-		// try {
+		 try {
 		var to_import = true;
 		for (var j = 0; j < warnLines.length; j++) {
 			if (warnLines[j].rowNum == i + 1)
@@ -295,17 +297,22 @@ function put_in_db() {
 			row.num = myTree.view.getCellText(i, colNum);
 			row.type = myTree.view.getCellText(i, colType);
 			row.batch_num = import_file.leafName;
-			curdb.exec(row, "operations");
+			myDb.exec(row, "operations");
 		}
 
-		// } catch (e) {
-		// dump2("erreur lors de l'injection en base de la ligne " + (i+1));
-		// dump2(e);
-		// }
+		 } catch (e) {
+		 dump2("erreur lors de l'injection en base de la ligne " + (i+1));
+		 dump2(e);
+		 }
 	}
 	// curdb.mDBConn.rollbackTransaction();
-	curdb.mDBConn.commitTransaction();
+	//curdb.mDBConn.commitTransaction();
 	dump2("hello put in db");
+		 } catch (e) {
+		 dump2("erreur lors de l'injection en base");
+		 dump2(e);
+		 }
+	
 }
 
 function reparse_import(event) {
