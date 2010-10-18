@@ -1,6 +1,6 @@
-Components.utils.import("resource://m/debug.js");
-Components.utils.import("resource://m/utils.js");
-Components.utils.import("resource://m/Db.js");
+Components.utils.import("resource://app/modules/debug.js");
+Components.utils.import("resource://app/modules/utils.js");
+Components.utils.import("resource://app/modules/Db.js");
 
 // var myDb;
 var ModifiedFields = function() {

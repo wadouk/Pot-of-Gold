@@ -1,7 +1,5 @@
 @import url(chrome://global/skin);
-#main-left, #main-right {
-	overflow: auto;
-}
+
 .amount, #col_nb_oper, #col_nb_other {
 	text-align: right;
 }

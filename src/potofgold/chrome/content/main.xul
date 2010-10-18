@@ -13,7 +13,7 @@
 
 	<menubar id="main-menubar"/>
 	<hbox flex="1">
-		<vbox id="main-left"/>
+		<vbox id="main-left" flex="1"/>
 		<vbox id="main-right"/>
 	</hbox>
 	<statusbar>
