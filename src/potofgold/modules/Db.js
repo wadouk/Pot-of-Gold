@@ -71,10 +71,10 @@ function db() {
  * 	si table avec même nom existe {
  * 		recupération du sql
  * }
- * 	si sql identique, rien à faire 
+ * 	si sql identique, rien à faire
  * 	si sql différent, renommer ancienne table à la version fromversion {
  * 		créer nouvelle table
- * 		migrer les données (insert as select) 
+ * 		migrer les données (insert as select)
  * 		avec les colonnes qui ont le même nom
  * 		des deux côtés
  * }
@@ -97,7 +97,7 @@ db.prototype.checkVersionAndPatch = function() {
 	// /file = file.parent;
 	file.append("sql");
 	var entries = file.directoryEntries;
-	var array = [];
+	//var array = [];
 	var struct = [];
 	while (entries.hasMoreElements()) {
 		var entry = entries.getNext();
@@ -134,33 +134,95 @@ db.prototype.checkVersionAndPatch = function() {
 							var value = lines[k].match(/(\S*)$/g)[0];
 							tuple[key] = value;
 						} catch (e) {
-							dump2("e lines[" + k + "]=" + lines[k]);
+							//dump2("e lines[" + k + "]=" + lines[k]);
 						}
 					} else {
 						// query
-						if (tuple.query)
-							tuple.query = tuple.query + '\n' + lines[k];
+						if (tuple.sql)
+							tuple.sql = tuple.sql + '\n' + lines[k];
 						else
-							tuple.query = lines[k];
+							tuple.sql = lines[k];
 					}
 				}
-				for ( var el in tuple) {
+				//for ( var el in tuple) {
 					// if ( el != 'query')
-					dump2("tuple[" + el + "]=" + tuple[el]);
-				}
+					//dump2("tuple[" + el + "]=" + tuple[el]);
+				//}
 				// dump2("@"+tuple.key+"="+ tuple.value);
 				// dump2("sql="+tuple.query);
 				struct.push(tuple);
 				tuple = undefined;
 
 			}
-			dump2("struct length=" + struct.length);
+			//dump2("struct length=" + struct.length);
 		}
 	}
 
-	for ( var i = 0; i < array.length; i++) {
+	for ( var i = 0; i < struct.length; i++) {
+		var tuple = struct[i];
+		if (tuple.type == 'table' || tuple.type == 'view' || tuple.type =='trigger') {
+			if (!this.isObjectExist(tuple.name,tuple.type)) {
+				this.mDBConn.createStatement(tuple.sql).execute();
+				dump2('execute create ' + tuple.sql);
+			} else {
+				if (!this.isSameSql(tuple.sql,this.objectDesc[tuple.name].sql)) {
+					dump2('object ' + tuple.name + ' has not same definition');
+					//dump2('todo='+tuple.sql);
+					//dump2('current='+this.objectDesc[tuple.name].sql);
+				} else {
+					dump2('object ' + tuple.name + ' has same def');
+				}
+			}
+		} else {
+
+			dump2('execut query ' + tuple.sql);
+			this.mDBConn.createStatement(tuple.sql).execute();
+			//var st =	this.mDBConn.createStatement(tuple.query);
+			//st.execute();
+
+		}
 	}
 
+}
+
+/**
+ * On enlève tous les caractères "invisibles" ou parasytes pour comparer les chaines SQL.
+ * les espaces, tabulations, retour chariots ou quote.
+ * S'il y a besoin de protéger les noms des objets sql par des quotes, une différence sans quote aura le même résultat.
+ * les tab ou les retours chariots sont pour la lisibilité.
+ * les espaces ont sémantiquement un sens mais les envlever ne parasyte pas la comparaison
+*/
+db.prototype.isSameSql = function(sql1,sql2) {
+	var sameSqlRe = / |\t|\n|"/g;
+	sql1 = sql1.replace(sameSqlRe,'').toLowerCase();
+	sql2 = sql2.replace(sameSqlRe,'').toLowerCase();
+	var isSame = (sql1 == sql2);
+	if (!isSame) {
+		dump2('1 ' + sql1);
+		dump2('2 ' + sql2)
+	}
+	return isSame;
+}
+db.prototype.isObjectExist = function(objectName,objectType) {
+	this.getObjectDesc();
+	return (this.objectDesc[objectName] != undefined)
+}
+db.prototype.getObjectDesc = function() {
+	if (this.objectDesc || this.objectDesc == undefined) {
+		var query =	"select * from sqlite_master";
+		var st = this.mDBConn.createStatement(query);
+		this.objectDesc = [];
+		while (st.executeStep()) {
+			for (var i=0;i<st.columnCount;i++) {
+				//dump2("name="+st.getColumnName(i));
+				//dump2("value="+st.getUTF8String(i));
+				if (this.objectDesc[st.row.name] == undefined)
+					this.objectDesc[st.row.name] = [];
+				this.objectDesc[st.row.name][st.getColumnName(i)] = st.getUTF8String(i);
+			}
+		}
+	}
+	return this.objectDesc;
 }
 db.prototype.bind = function(statement, where) {
 	for ( var i = 0; i < statement.parameterCount; i++) {
@@ -217,7 +279,7 @@ db.prototype.get = function(select, tableName, where) {
 				break;
 			/*
 			 * case Components.interfaces.mozIStorageValueArray.VALUE_TYPE_BLOB:
-			 * 
+			 *
 			 * break;
 			 */
 			}
@@ -339,7 +401,7 @@ db.prototype.execRequest = function(request, params, expectedChanges) {
 /**
  * Faire un update ou un insert sur une table donnï¿½e en fonction de la
  * prï¿½sence ou pas de l'id dans la liste des champs
- * 
+ *
  * @param obj
  *            {tableau associatif} la liste des champs clef / valeur
  * @param tableName

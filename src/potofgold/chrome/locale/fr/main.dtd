@@ -59,6 +59,8 @@
 
 <!ENTITY closed_less.label "Pointée au débit">
 <!ENTITY closed_more.label "Pointée au crédit">
+<!ENTITY credit.label "Crédit">
+<!ENTITY debit.label "Débit">
 
 
 <!ENTITY amount_closedorchecked.label "Solde pointé ou rapproché">

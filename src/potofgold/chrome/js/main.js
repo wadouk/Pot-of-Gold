@@ -9,7 +9,7 @@ var ModifiedFields = function() {
 };
 /**
  * n : numeric, s : string, d : date, e : enum
- * 
+ *
  * @type
  */
 var availableFields = {
@@ -32,7 +32,7 @@ var usedField = {};
 
 /**
  * eq equal lt lower than gt greater than c contains
- * 
+ *
  * @type
  */
 var operands = {
@@ -250,7 +250,7 @@ function formatState() {
 function showJsConsole() {
 	try {
 		var url = "chrome://global/content/console.xul";
-		var features = "chrome,titlebar,toolbar,centerscreen";
+		var features = "chrome,titlebar,toolbar,centerscreen,resizable=yes";
 		show(url, null, features);
 		// window.openDialog(url, url, features);
 	} catch (e) {
@@ -297,7 +297,7 @@ function showChartSoleEval() {
 function showFullConfig() {
 	try {
 		var url = "about:config";
-		var features = "chrome,titlebar,toolbar,centerscreen";
+		var features = "chrome,titlebar,toolbar,centerscreen,resizable=yes";
 		show(url, null, features);
 	} catch (e) {
 		dump2(e);
@@ -769,7 +769,7 @@ if (doDom) {
 	 * document.createElement("param");
 	 * paramNode.appendChild(document.createTextNode(params[field]));
 	 * paramNode.setAttribute("name", field);
-	 * 
+	 *
 	 * queryNode.appendChild(paramNode); //
 	 * dump2("params["+field+"]="+params[field]); }
 	 */
